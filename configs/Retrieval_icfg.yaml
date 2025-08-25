@@ -1,4 +1,4 @@
-image_root: 'images/ICFG-PEDES/'
+image_root: 'images/ICFG-PEDES/imgs/'
 train_file:  ['data/finetune/icfg_train.json']
 test_file: 'data/finetune/icfg_test.json'
 

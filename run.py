@@ -88,7 +88,7 @@ def run(args):
         run_retrieval(args)
 
     elif args.task == 'itr_pa100k':
-        assert os.path.exists("images/pa100k")
+        assert os.path.exists("images/PA100K")
         args.config = 'configs/Retrieval_pa100k.yaml'
         run_retrieval(args)
 
@@ -108,8 +108,45 @@ if __name__ == '__main__':
     parser.add_argument('--evaluate', action='store_true', help="evaluation on downstream tasks")
     args = parser.parse_args()
 
-    assert os.path.exists(os.path.dirname(args.output_dir))
+    # print(os.path.dirname(args.output_dir))
+    # print(os.path.exists(os.path.dirname(args.output_dir)))
+    # assert os.path.exists(os.path.dirname(args.output_dir))
     if not os.path.exists(args.output_dir):
-        os.mkdir(args.output_dir)
+        os.makedirs(args.output_dir, exist_ok=True)
 
     run(args)
+
+
+
+#####
+##### results in APTM paper
+#####
+# python3 run.py --task "itr_cuhk" --evaluate --dist "gpu0" --output_dir "output/ft_cuhk/test" --checkpoint "checkpoints/ft_cuhk/checkpoint_best.pth"
+# +------+--------+--------+--------+--------+--------+
+# | task |   R1   |   R5   |  R10   |  mAP   |  mINP  |
+# +------+--------+--------+--------+--------+--------+
+# | t2i  | 76.170 | 89.457 | 93.600 | 65.570 | 47.372 |
+# +------+--------+--------+--------+--------+--------+
+
+# python3 run.py --task "itr_rstp" --evaluate --dist "gpu0" --output_dir "output/ft_rstp/test" --checkpoint "checkpoints/ft_rstp/checkpoint_best.pth"
+# +------+--------+--------+--------+--------+--------+
+# | task |   R1   |   R5   |  R10   |  mAP   |  mINP  |
+# +------+--------+--------+--------+--------+--------+
+# | t2i  | 66.450 | 85.600 | 90.600 | 50.642 | 25.526 |
+# +------+--------+--------+--------+--------+--------+
+
+# python3 run.py --task "itr_icfg" --evaluate --dist "gpu1" --output_dir "output/ft_icfg/test" --checkpoint "checkpoints/ft_icfg/checkpoint_best.pth"
+# +------+--------+--------+--------+--------+-------+
+# | task |   R1   |   R5   |  R10   |  mAP   |  mINP |
+# +------+--------+--------+--------+--------+-------+
+# | t2i  | 68.183 | 82.885 | 87.500 | 40.507 | 9.104 |
+# +------+--------+--------+--------+--------+-------+
+
+# python3 run.py --task "itr_pa100k" --evaluate --dist "gpu0" --output_dir "output/ft_pa100k/test" --checkpoint "checkpoints/ft_pa100k/checkpoint_best.pth"
+# {'label_mA': 0.8235, 'ins_acc': 0.8024, 'ins_prec': 0.8853, 'ins_rec': 0.8769, 'ins_f1': 0.8811}
+
+
+# python3 run.py --task "itr_gene" --dist "f4" --output_dir "output/pretrained"
+# 仅用于pretrain
+# python3 run.py --task "itr_cuhk" --dist "f4" --output_dir "output/ft_cuhk" --checkpoint "output/pretrained/checkpoint_31.pth"
+# 仅用于finetuned

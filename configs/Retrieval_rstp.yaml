@@ -1,4 +1,4 @@
-image_root: 'images/RSTPReid/'
+image_root: 'images/RSTPReid/imgs/'
 train_file:  ['data/finetune/rstp_train.json']
 val_file: 'data/finetune/rstp_val.json'
 test_file: 'data/finetune/rstp_test.json'

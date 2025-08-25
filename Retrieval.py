@@ -2,7 +2,8 @@ import argparse
 import os
 import math
 
-import ruamel.yaml as yaml
+# import ruamel.yaml as yaml
+from ruamel.yaml import YAML
 import numpy as np
 import random
 import time
@@ -293,7 +294,9 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    config = yaml.load(open(args.config, 'r'), Loader=yaml.Loader)
+    # yaml.load(open(args.config, 'r'), Loader=yaml.Loader)
+    yaml = YAML(typ='rt')
+    config = yaml.load(open(args.config, 'r'))
 
     Path(args.output_dir).mkdir(parents=True, exist_ok=True)
 
