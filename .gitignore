@@ -21,3 +21,8 @@ models/__pycache__/model_retrieval.cpython-38.pyc
 models/__pycache__/swin_transformer.cpython-38.pyc
 models/__pycache__/tokenization_bert.cpython-38.pyc
 utils/__pycache__/__init__.cpython-38.pyc
+tta/__pycache__/__init__.cpython-310.pyc
+tta/__pycache__/adapt.cpython-310.pyc
+tta/__pycache__/dataset.cpython-310.pyc
+tta/__pycache__/optim.cpython-310.pyc
+tta/__pycache__/utils.cpython-310.pyc
