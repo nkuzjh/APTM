@@ -30,11 +30,12 @@
 
 
 # command
-- tta: run.py
-    python3 run.py --task "itr_cuhk" --tta --dist "gpu0" --output_dir "output/ft_cuhk/tta" --checkpoint "checkpoints/ft_cuhk/checkpoint_best.pth"
+**itr_pa100k为i2t任务且模型结构不同，irt_gene为finetune任务**
+- tta: run_tta.py
+    python3 run.py --task "itr_cuhk" --tta --config tta_configs/TTA_Retrieval_cuhk/exp_debug.yaml --output_dir "output/ft_cuhk/tta/exp_debug" --checkpoint "checkpoints/ft_cuhk/checkpoint_best.pth"
 
 - tta: tta.py
-    <!-- CUDA_VISIBLE_DEVICES=1 python3 tta.py --tta --task tta --config configs/tta.yaml  --output_dir output/tta/2025081715503  --checkpoint checkpoint/cmp.pth --bs 32 --epo 10 --lr 0.0001 --seed 42 -->
+    CUDA_VISIBLE_DEVICES = 0 tta.py --task itr_cuhk --config tta_configs/TTA_Retrieval_cuhk/exp_debug.yaml --output_dir output/ft_cuhk/tta/exp_debug --bs 3 --epo 10 --checkpoint checkpoints/ft_cuhk/checkpoint_best.pth --tta
 
 
 # exp
