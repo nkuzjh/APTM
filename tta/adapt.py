@@ -15,7 +15,7 @@ import datetime
 
 
 @torch.enable_grad()
-def test_time_adapt_itm(model, optimizer, scaler, epoch, device, scheduler, config, sims_matrix, image_embeds, text_embeds, text_atts):
+def test_time_adapt_itm(model, optimizer, scaler, epoch, device, scheduler, config, dataloader):
     # model.eval()
     model.train()
 
@@ -40,12 +40,12 @@ def test_time_adapt_itm(model, optimizer, scaler, epoch, device, scheduler, conf
             proba_top1_sim =  proba_top1_sim.to(device)
             proba_inversed_sim = proba_inversed_sim.to(device)
 
-        with torch.autocast(device_type='cuda', dtype=torch.bfloat16):
+        with torch.cuda.amp.autocast(enabled=True):#(device_type='cuda', dtype=torch.bfloat16):
             output = model.get_cross_embeds(
-                encoder_output,#([24, 50, 1024])
-                encoder_att,#([24, 50])
-                text_embeds,#([24, 56, 768])
-                text_atts#([24, 56])
+                encoder_output,#([24, 49, 1024])
+                encoder_att,#([24, 49])
+                text_embeds = text_embeds,#([24, 56, 768])
+                text_atts = text_atts#([24, 56])
             )[:, 0, :] # (bs*k_tta, sequence, last_hidden_states)[:, 0, :] -> (bs*tta, last_hidden_states)
             ### 如果使用prompt learning增加一个随机初始化的token，这里能否取index=0的last_hidden_states作为itm结果？是否应该用index=1(即原本的cls token位置)替代？需要结合CoOp代码看一下是如何实现的，使用哪个token作为最终结果。
             ### 我在text_embeds之前加入随机初始化的embedding作为prompt learning的初始值，token数量从1-12进行exp，itm.output使用原cls token位置的feature作为结果logits输出

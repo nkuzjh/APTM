@@ -33,6 +33,9 @@ from reTools import evaluation_attr, itm_eval_attr
 from reTools import evaluation_attr_only_img_classifier, itm_eval_attr_only_img_classifier
 
 
+from torch.cuda.amp import GradScaler
+
+
 from tta.dataset import create_tta_dataset, create_tta_loader, create_dataset, create_loader
 from tta.optim import configure_tta_model, create_tta_optimizer, create_tta_scheduler
 from tta.adapt import test_time_adapt_itm
@@ -102,8 +105,8 @@ def main(args, config):
     # else:
     #     train_dataset, val_dataset, test_dataset = create_dataset('re_gene', config, False, args.tta)
     print(f"     test_dataset: {len(test_dataset)}")
-    sample = next(iter(test_dataset))
-    print(sample) #sample[0].shape=([3, 384, 128]) sample[1] = int(0)
+    # sample = next(iter(test_dataset))
+    # print(sample) #sample[0].shape=([3, 384, 128]) sample[1] = int(0)
 
     print("### Creating test dataloader")
     test_loader = create_loader(
@@ -114,62 +117,62 @@ def main(args, config):
         collate_fns=[None]
     )[0]
     print(f"     test_loader: {len(test_loader)}")
-    batch = next(iter(test_loader))
-    print(batch)#batch[0].shape=([150, 3, 384, 128]), batch[1].shape=([150])
+    # batch = next(iter(test_loader))
+    # print(batch)#batch[0].shape=([150, 3, 384, 128]), batch[1].shape=([150])
 
 
     print("### Inference ITC similiarity matrix")
     ## run only at first time to avoid error, then using np.load() to load itm input features.
-    sims_matrix_t2i, image_embeds, text_embeds, text_atts = evaluation_itc(
-        model,
-        test_loader,
-        tokenizer,
-        device,
-        config,
-    )
-    np.save("/data2/jiahao/APTM_TTA_CUHK/debug_embeddings/sims_matrix_t2i.npy", sims_matrix_t2i.detach().cpu().numpy())
-    np.save("/data2/jiahao/APTM_TTA_CUHK/debug_embeddings/image_embeds.npy", image_embeds.detach().cpu().numpy())
-    np.save("/data2/jiahao/APTM_TTA_CUHK/debug_embeddings/text_embeds.npy", text_embeds.detach().cpu().numpy())
-    np.save("/data2/jiahao/APTM_TTA_CUHK/debug_embeddings/text_atts.npy", text_atts.detach().cpu().numpy())
-    sims_matrix_t2i = torch.from_numpy(np.load("/data2/jiahao/APTM_TTA_CUHK/debug_embeddings/sims_matrix_t2i.npy"))#.to(device)
-    image_embeds = torch.from_numpy(np.load("/data2/jiahao/APTM_TTA_CUHK/debug_embeddings/image_embeds.npy"))#.to(device)
-    text_embeds = torch.from_numpy(np.load("/data2/jiahao/APTM_TTA_CUHK/debug_embeddings/text_embeds.npy"))#.to(device)
-    text_atts = torch.from_numpy(np.load("/data2/jiahao/APTM_TTA_CUHK/debug_embeddings/text_atts.npy"))#.to(device)
+    # sims_matrix_t2i, image_embeds, text_embeds, text_atts = evaluation_itc(
+    #     model,
+    #     test_loader,
+    #     tokenizer,
+    #     device,
+    #     config,
+    # )
+    # np.save("/data/jiahao/APTM_TTA_CUHK/debug_embeddings/sims_matrix_t2i.npy", sims_matrix_t2i.detach().cpu().numpy())
+    # np.save("/data/jiahao/APTM_TTA_CUHK/debug_embeddings/image_embeds.npy", image_embeds.detach().cpu().numpy())
+    # np.save("/data/jiahao/APTM_TTA_CUHK/debug_embeddings/text_embeds.npy", text_embeds.detach().cpu().numpy())
+    # np.save("/data/jiahao/APTM_TTA_CUHK/debug_embeddings/text_atts.npy", text_atts.detach().cpu().numpy())
+    sims_matrix_t2i = torch.from_numpy(np.load("/data/jiahao/APTM_TTA_CUHK/debug_embeddings/sims_matrix_t2i.npy"))#.to(device)
+    image_embeds = torch.from_numpy(np.load("/data/jiahao/APTM_TTA_CUHK/debug_embeddings/image_embeds.npy"))#.to(device)
+    text_embeds = torch.from_numpy(np.load("/data/jiahao/APTM_TTA_CUHK/debug_embeddings/text_embeds.npy"))#.to(device)
+    text_atts = torch.from_numpy(np.load("/data/jiahao/APTM_TTA_CUHK/debug_embeddings/text_atts.npy"))#.to(device)
 
-    sims_test_result = mAP(sims_matrix_t2i, test_loader.dataset.g_pids, test_loader.dataset.q_pids, table)
-    table.add_row([
-        -999, sims_test_result['R1'], sims_test_result['R5'], sims_test_result['R10'], sims_test_result['mAP'], sims_test_result['mINP']
-    ])
-    print("### Zero-Shot ITC Score: ")
-    print(table)
-
-
-    labels = test_loader.dataset.g_pids, test_loader.dataset.q_pids #TODO
-
-
-    score_test_t2i = evaluation_itm(
-        model,
-        device, config, args,
-        sims_matrix_t2i, image_embeds, text_embeds, text_atts
-    )
-    test_result = mAP(score_test_t2i, test_loader.dataset.g_pids, test_loader.dataset.q_pids, table)
-    table.add_row([
-        -999, test_result['R1'], test_result['R5'], test_result['R10'], test_result['mAP'], test_result['mINP']
-    ])
-    print("### Zero-Shot ITM Score: ")
-    print(table)
-
-
-    # table.add_row([-999, 69.414, 95.197, 97.776, 81.233, 81.233])
-    # table.add_row([-999, 84.277, 99.039, 99.596, 91.276, 91.276])
-    # print("### Zero-Shot Score: ")
+    # sims_test_result = mAP(sims_matrix_t2i, test_loader.dataset.g_pids, test_loader.dataset.q_pids, table)
+    # table.add_row([
+    #     -999, sims_test_result['R1'], sims_test_result['R5'], sims_test_result['R10'], sims_test_result['mAP'], sims_test_result['mINP']
+    # ])
+    # print("### Zero-Shot ITC Score: ")
     # print(table)
+
+
+    # labels = test_loader.dataset.g_pids, test_loader.dataset.q_pids #TODO
+
+
+    # score_test_t2i = evaluation_itm(
+    #     model,
+    #     device, config, args,
+    #     sims_matrix_t2i, image_embeds, text_embeds, text_atts
+    # )
+    # test_result = mAP(score_test_t2i, test_loader.dataset.g_pids, test_loader.dataset.q_pids, table)
+    # table.add_row([
+    #     -999, test_result['R1'], test_result['R5'], test_result['R10'], test_result['mAP'], test_result['mINP']
+    # ])
+    # print("### Zero-Shot ITM Score: ")
+    # print(table)
+
+
+    table.add_row([-999, 70.760, 87.378, 92.268, 63.849, 48.174])
+    table.add_row([-999, 76.170, 89.457, 93.600, 65.570, 47.372])
+    print("### Zero-Shot Score: ")
+    print(table)
     # ### Zero-Shot ITM Score:
     # # +-------+--------+--------+--------+--------+--------+
     # # | epoch |   R1   |   R5   |  R10   |  mAP   |  mINP  |
     # # +-------+--------+--------+--------+--------+--------+
-    # # |  -999 | 69.414 | 95.197 | 97.776 | 81.233 | 81.233 |
-    # # |  -999 | 84.277 | 99.039 | 99.596 | 91.276 | 91.276 |
+    # # |  -999 | 70.760 | 87.378 | 92.268 | 63.849 | 48.174 |
+    # # |  -999 | 76.170 | 89.457 | 93.600 | 65.570 | 47.372 |
     # # +-------+--------+--------+--------+--------+--------+
 
 
@@ -179,7 +182,7 @@ def main(args, config):
 
         print("### Compute ITC Uncertainty")
         recall_types, ss_idxs_list, uncertaintys_list, proba_top1_sim_list, proba_inversed_sim_list  = preprocess_tta_coefficients(config, sims_matrix_t2i)
-
+        #len(ss_idxs_list) = 6156
 
         print("### Creating tta dataset")
         tta_dataset = create_tta_dataset(
@@ -196,8 +199,8 @@ def main(args, config):
 
         )
         print(f"     tta_dataset: {len(tta_dataset)}")
-        sample = next(iter(tta_dataset))
-        print(sample)
+        # sample = next(iter(tta_dataset))
+        # print(sample)
 
         print("### Creating tta dataloader")
         tta_loader = create_tta_loader(
@@ -208,11 +211,11 @@ def main(args, config):
             collate_fns=[None]
         )[0]
         print(f"     tta_loader: {len(tta_loader)}")
-        batch = next(iter(tta_loader))
-        print(batch)
+        # batch = next(iter(tta_loader))
+        # print(batch)
 
 
-        print("### Configure adapted weights") # TODO
+        print("### Configure adapted weights")
         # arg_tm = utils.AttrDict(config['tta_model'])
         model = configure_tta_model(config, model)
         print("     TTA Dropout Modules: \r\n", [(n,m,m.training) for n,m in model.named_modules() if isinstance(m, torch.nn.Dropout) and m.training==True] )
@@ -231,13 +234,14 @@ def main(args, config):
         start_time = time.time()
         best = 0
         best_epoch = 0
+        best_logs = {}
         max_epoch = config['schedular']['epochs']
         for epoch in range(0, max_epoch):
 
-            train_stats = test_time_adapt_itm(model, optimizer, scaler, epoch, device, lr_scheduler, config, sims_matrix_t2i, image_embeds, text_embeds, text_atts) # TODO
+            train_stats = test_time_adapt_itm(model, optimizer, scaler, epoch, device, lr_scheduler, config, tta_loader)
 
-            sims_matrix_t2i, image_embeds, text_embeds, text_atts = evaluation_itc(
-                model, test_loader, tokenizer, device, config)
+            if config.get('is_image_augmentation', False) == True:
+                sims_matrix_t2i, image_embeds, text_embeds, text_atts = evaluation_itc(model, test_loader, tokenizer, device, config)
             score_test_t2i = evaluation_itm(
                 model,
                 device, config, args,
@@ -269,13 +273,14 @@ def main(args, config):
                 # torch.save(save_obj, os.path.join(args.output_dir, 'checkpoint_best.pth'))
                 best = result
                 best_epoch = epoch
+                best_logs = logs
 
             # del sims_matrix_t2i, image_embeds, text_embeds, text_atts
             torch.cuda.empty_cache()
 
         with open(os.path.join(args.output_dir, "log.txt"), "a") as f:
-            f.write("best epoch: %d" % best_epoch)
-        print("### best epoch: %d" % best_epoch)
+            f.write(f"best epoch {best_epoch} : {best_logs}")
+        print(f"### best epoch {best_epoch} : {best_logs}")
         total_time = time.time() - start_time
         total_time_str = str(datetime.timedelta(seconds=int(total_time)))
         print('### Time {}'.format(total_time_str))

@@ -1,3 +1,29 @@
+
+## Test Time Adapt
+tta_model: '' #需要进行tta的model.modules()
+
+sample_selection: all
+
+batch_size_tta: 16
+k_tta: 8
+
+optimizer: {opt: adamW, lr: 1e-3, weight_decay: 0.01, lr_mult: 2}
+schedular: {sched: step, lr: 1e-3, epochs: 30, num_warmup_steps: 100}
+
+score_temper: 1.0
+
+# uncertainty: 'inversed_recall_proba'
+# uncertainty_temper: 1.0
+# uncertainty_temper_is_learnable: True
+# uncertainty_t2i_temper: 1.0
+# uncertainty_i2t_temper: 1.0
+
+# is_prompt_learning: True
+
+# is_image_augmentation: True
+
+
+
 image_root: images/CUHK-PEDES/imgs/
 test_file: data/finetune/cuhk_test.json
 # val_file: 'data/finetune/cuhk_val.json'
@@ -40,9 +66,9 @@ skipgram_size: 3
 mask_whole_word: true
 
 
-## Other Settings
-optimizer: {opt: adamW, lr: 1e-4, weight_decay: 0.01, lr_mult: 2}
-schedular: {sched: step, lr: 1e-4, epochs: 30, num_warmup_steps: 0.1}
+# ## Other Settings
+# optimizer: {opt: adamW, lr: 1e-4, weight_decay: 0.01, lr_mult: 2}
+# schedular: {sched: step, lr: 1e-4, epochs: 30, num_warmup_steps: 0.1}
 
 pa100k: false
 icfg_rstp: false

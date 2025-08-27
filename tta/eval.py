@@ -104,9 +104,7 @@ def evaluation_itm(model, device, config, args, sims_matrix, image_embeds, text_
         torch.distributed.all_reduce(score_matrix_t2i, op=torch.distributed.ReduceOp.SUM)
 
     total_time = time.time() - start_time
-    per_time = total_time / num_text
     print('     total_time', total_time)
-    print('     per_time', per_time)
     total_time_str = str(datetime.timedelta(seconds=int(total_time)))
     print('     Computing matching score time {}'.format(total_time_str))
     return score_matrix_t2i.cpu().numpy()

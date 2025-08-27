@@ -77,7 +77,7 @@ def preprocess_tta_coefficients(config, sims_matrix_t2i):
     if config.get('uncertainty', None) == 'inversed_recall_proba':
         uncertaintys_list, proba_top1_sim_list, proba_inversed_sim_list = compute_uncertainty_itc(config, sims_matrix_t2i, sims_matrix_t2i.t())
     else:
-        uncertaintys_list, proba_top1_sim_list, proba_inversed_sim_list = [ torch.ones(1) for _ in range(sims_matrix_t2i.size(0)) ], [ torch.ones(1) for _ in range(sims_matrix_t2i.size(0)) ], [ torch.ones(1) for _ in range(sims_matrix_t2i.size(0)) ]
+        uncertaintys_list, proba_top1_sim_list, proba_inversed_sim_list = torch.ones(sims_matrix_t2i.size(0)) , torch.ones(sims_matrix_t2i.size(0)), torch.ones(sims_matrix_t2i.size(0))
 
     print(f"     preprocess_tta_coefficients  end")
     return recall_types, ss_idxs_list, uncertaintys_list, proba_top1_sim_list, proba_inversed_sim_list

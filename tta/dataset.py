@@ -148,28 +148,7 @@ def create_loader(datasets, batch_size, num_workers, is_trains, collate_fns):
 
 class search_tta_dataset(Dataset):
     def __init__(self, config, tta_transform, sims_matrix_t2i, image_embeds, text_embeds, text_atts, recall_types, ss_idxs_list, uncertaintys_list, proba_top1_sim_list, proba_inversed_sim_list):
-        # ann_file = config['tta_file']
-        # self.transform = transform
-        # self.image_root = config.get('image_root_tta', config['image_root'])
-        # self.max_words = config['max_words']# 56
-
-        # self.ann = read_json_to_list(ann_file)
-
-        # self.be_pose_img = config.get('be_pose_img', False)
-        # print('tta dataset -->    be_pose_img:', self.be_pose_img)
-
-        # self.text = []
-        # self.image = []
-        # self.g_pids = []
-        # self.q_pids = []
-        # for img_id, ann in enumerate(self.ann):
-        #     self.g_pids.append(ann['image_id'])
-        #     self.image.append(ann['image'])
-        #     for i, caption in enumerate(ann['caption']):
-        #         self.q_pids.append(ann['image_id'])
-        #         self.text.append(pre_caption(caption, self.max_words))
         self.config = config
-        # self.transform = tta_transform
         self.sims_matrix_t2i = sims_matrix_t2i
         self.image_embeds= image_embeds
         self.text_embeds = text_embeds
@@ -199,21 +178,9 @@ class search_tta_dataset(Dataset):
         return len(self.sims_matrix_t2i)
 
     def __getitem__(self, index):
-        # image_path = os.path.join(self.image_root, self.ann[index]['image'])
-        # image = Image.open(image_path).convert('RGB')
-        # image = self.transform(image)
-
-        # if self.be_pose_img:
-        #     pose_path = os.path.join(self.image_root, 'pose/' + self.ann[index]['image'])
-        #     pose = Image.open(pose_path).convert('RGB')
-        #     pose = self.transform(pose)
-        # else:
-        #     pose = {}
-
-        # return image, pose, index
         topk_sim, topk_idx = self.sims_matrix_t2i[index].topk(k=self.config['k_tta'], dim=0) #[k_tta]
-        encoder_output = self.image_embeds[topk_idx] #[k_tta, 50, 1024]
-        encoder_att = torch.ones(encoder_output.size()[:-1], dtype=torch.long) #[k_tta, 50])
+        encoder_output = self.image_embeds[topk_idx] #[k_tta, 49, 1024]
+        encoder_att = torch.ones(encoder_output.size()[:-1], dtype=torch.long) #[k_tta, 49])
         text_embeds = self.text_embeds[index].repeat(self.config['k_tta'], 1, 1) #k_tta, 56, 768])
         text_atts = self.text_atts[index].repeat(self.config['k_tta'], 1) #k_tta, 56
         uncertainty = self.uncertaintys_list[index]

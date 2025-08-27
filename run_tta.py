@@ -61,9 +61,7 @@ def run_retrieval(args):
     # os.system(f"{dist_launch} "
     #           f"--use_env Retrieval.py --config {args.config} "
     #           f"--task {args.task} --output_dir {args.output_dir} --bs {args.bs} --epo {args.epo} --checkpoint {args.checkpoint} {'--evaluate' if args.evaluate else ''}")
-    os.system(f"CUDA_VISIBLE_DEVICES = 0 "
-            f"tta.py --config {args.config} "
-            f"--task {args.task} --output_dir {args.output_dir} --bs {args.bs} --epo {args.epo} --checkpoint {args.checkpoint} {'--tta' if args.tta else ''}")
+    os.system( f"CUDA_VISIBLE_DEVICES=2 python3 tta.py --config {args.config} --task {args.task} --output_dir {args.output_dir} --bs {args.bs} --epo {args.epo} --checkpoint {args.checkpoint} {'--tta' if args.tta else ''}" )
 
 
 def run(args):
@@ -97,7 +95,7 @@ def run(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--task', type=str, required=True)
-    parser.add_argument('--dist', type=str, required=True, help="see func get_dist_launch for details")
+    # parser.add_argument('--dist', type=str, required=True, help="see func get_dist_launch for details")
     parser.add_argument('--bs', default=-1, type=int, help="for each gpu, batch_size = bs // num_gpus; ")
     parser.add_argument('--epo', default=-1, type=int, help="epoch")
     parser.add_argument('--seed', default=42, type=int)

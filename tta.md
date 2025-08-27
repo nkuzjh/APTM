@@ -2,7 +2,7 @@
 
 
 # baseline score
-**results in APTM paper**
+## results in APTM paper
 1. python3 run.py --task "itr_cuhk" --evaluate --dist "gpu0" --output_dir "output/ft_cuhk/test" --checkpoint "checkpoints/ft_cuhk/checkpoint_best.pth"
     +------+--------+--------+--------+--------+--------+
     | task |   R1   |   R5   |  R10   |  mAP   |  mINP  |
@@ -21,21 +21,25 @@
     +------+--------+--------+--------+--------+-------+
     | t2i  | 68.183 | 82.885 | 87.500 | 40.507 | 9.104 |
     +------+--------+--------+--------+--------+-------+
-4. python3 run.py --task "itr_pa100k" --evaluate --dist "gpu0" --output_dir "output/ft_pa100k/test" --checkpoint "checkpoints/ft_pa100k/checkpoint_best.pth"
-    {'label_mA': 0.8235, 'ins_acc': 0.8024, 'ins_prec': 0.8853, 'ins_rec': 0.8769, 'ins_f1': 0.8811}
-5. python3 run.py --task "itr_gene" --dist "f4" --output_dir "output/pretrained"
+
+## 不符合setting的任务
+**itr_pa100k为i2t任务且模型结构不同**
+**irt_gene为finetune任务**
+1. python3 run.py --task "itr_pa100k" --evaluate --dist "gpu0" --output_dir "output/ft_pa100k/test" --checkpoint "checkpoints/ft_pa100k/checkpoint_best.pth"
+   {'label_mA': 0.8235, 'ins_acc': 0.8024, 'ins_prec': 0.8853, 'ins_rec': 0.8769, 'ins_f1': 0.8811}
+2. python3 run.py --task "itr_gene" --dist "f4" --output_dir "output/pretrained"
     仅用于pretrain
-6. python3 run.py --task "itr_cuhk" --dist "f4" --output_dir "output/ft_cuhk" --checkpoint "output/pretrained/checkpoint_31.pth"
+3. python3 run.py --task "itr_cuhk" --dist "f4" --output_dir "output/ft_cuhk" --checkpoint "output/pretrained/checkpoint_31.pth"
     仅用于finetuned
 
 
 # command
-**itr_pa100k为i2t任务且模型结构不同，irt_gene为finetune任务**
+
 - tta: run_tta.py
-    python3 run.py --task "itr_cuhk" --tta --config tta_configs/TTA_Retrieval_cuhk/exp_debug.yaml --output_dir "output/ft_cuhk/tta/exp_debug" --checkpoint "checkpoints/ft_cuhk/checkpoint_best.pth"
+    python3 run_tta.py --task "itr_cuhk" --tta --config tta_configs/TTA_Retrieval_cuhk/exp_debug.yaml --output_dir "output/ft_cuhk/tta/exp_debug" --checkpoint "checkpoints/ft_cuhk/checkpoint_best.pth"
 
 - tta: tta.py
-    CUDA_VISIBLE_DEVICES = 0 tta.py --task itr_cuhk --config tta_configs/TTA_Retrieval_cuhk/exp_debug.yaml --output_dir output/ft_cuhk/tta/exp_debug --bs 3 --epo 10 --checkpoint checkpoints/ft_cuhk/checkpoint_best.pth --tta
+    CUDA_VISIBLE_DEVICES=0 python3 tta.py --task itr_cuhk --config tta_configs/TTA_Retrieval_cuhk/exp_debug.yaml --output_dir output/ft_cuhk/tta/exp_debug --bs 3 --epo 10 --checkpoint checkpoints/ft_cuhk/checkpoint_best.pth --tta
 
 
 # exp

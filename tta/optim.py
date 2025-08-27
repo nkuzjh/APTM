@@ -7,7 +7,7 @@ from torch import nn
 
 
 
-def configure_model_xvlm_itm(model):
+def configure_model_aptm_itm(model):
     """Configure model for use with tent."""
     # train mode, because tent optimizes the model to minimize entropy
     model.train()
@@ -40,7 +40,7 @@ def configure_model_xvlm_itm(model):
             m.running_var = None
     return model
 
-def collect_params_xvlm_itm(model):
+def collect_params_aptm_itm(model):
     """Collect the affine scale + shift parameters from batch norms.
 
     Walk the model's modules and collect all batch normalization parameters.
@@ -67,13 +67,13 @@ def collect_params_xvlm_itm(model):
     return params, names
 
 def configure_tta_model(config, model):
-    model = configure_model_xvlm_itm(model)
+    model = configure_model_aptm_itm(model)
     if config.get("uncertainty_temper_is_learnable", False) == True:
         model.uncertainty_temper.requires_grad_(True)
     if config.get("is_prompt_learning", False) == True:
         model.prompt_learning_embedding.requires_grad_(True)
         model.is_prompt_learning=True
-    # params, param_names = collect_params_xvlm_itm(model)
+    # params, param_names = collect_params_aptm_itm(model)
     # if getattr(cfg.config.tta, "coeffi_exp_temper_is_learnable", False) == True:
     #     params.append(model.coeffi_exp_temper)
     # if getattr(cfg.config.tta, "is_prompt_learning", False) == True:
