@@ -9,8 +9,8 @@ dataset_name="itr_cuhk"
 
 # 定义实验名
 exp_names=(
-    "tta_exp0"
-    "tta_exp0.1"
+    # "tta_exp0"
+    # "tta_exp0.1"
     "tta_exp0.2"
     "tta_exp0.3"
     "tta_exp0.4"

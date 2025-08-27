@@ -93,7 +93,7 @@ def create_dataset(dataset, config, evaluate=False, tta=False):
     if dataset == 're_icfg':
         test_dataset = re_test_dataset_icfg(config, test_transform)
         if tta:
-            return None, None, test_dataset
+            return None, test_dataset
         if evaluate:
             return None, test_dataset
         train_dataset = re_train_dataset(config, train_transform, pre_transform)

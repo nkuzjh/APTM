@@ -39,14 +39,21 @@
     python3 run_tta.py --task "itr_cuhk" --tta --config tta_configs/TTA_Retrieval_cuhk/exp_debug.yaml --output_dir "output/ft_cuhk/tta/exp_debug" --checkpoint "checkpoints/ft_cuhk/checkpoint_best.pth"
 
 - tta: tta.py
-    CUDA_VISIBLE_DEVICES=0 python3 tta.py --task itr_cuhk --config tta_configs/TTA_Retrieval_cuhk/exp_debug.yaml --output_dir output/ft_cuhk/tta/exp_debug --bs 3 --epo 10 --checkpoint checkpoints/ft_cuhk/checkpoint_best.pth --tta
+    1. CUDA_VISIBLE_DEVICES=0 python3 tta.py --task itr_cuhk --config tta_configs/TTA_Retrieval_cuhk/exp_debug.yaml --output_dir output/ft_cuhk/tta/exp_debug --bs 3 --epo 10 --checkpoint checkpoints/ft_cuhk/checkpoint_best.pth --tta
+
+    2. CUDA_VISIBLE_DEVICES=2 python3 tta.py --task itr_icfg --config tta_configs/TTA_Retrieval_icfg/exp_debug.yaml --output_dir output/ft_icfg/tta/exp_debug --bs 3 --epo 10 --checkpoint checkpoints/ft_icfg/checkpoint_best.pth --tta
+
+    3. CUDA_VISIBLE_DEVICES=2 python3 tta.py --task itr_rstp --config tta_configs/TTA_Retrieval_rstp/exp_debug.yaml --output_dir output/ft_rstp/tta/exp_debug --bs 3 --epo 10 --checkpoint checkpoints/ft_rstp/checkpoint_best.pth --tta
+
+- tta_pretrain: tta.py
+    1. CUDA_VISIBLE_DEVICES=0 python3 tta.py --task itr_cuhk --config tta_configs/TTA_Retrieval_cuhk_pretrain/exp_debug.yaml --output_dir output/ft_cuhk/tta_pretrain/exp_debug --bs 3 --epo 10 --checkpoint checkpoints/pretrained/checkpoint_31.pth --tta
+
+    2. CUDA_VISIBLE_DEVICES=2 python3 tta.py --task itr_icfg --config tta_configs/TTA_Retrieval_icfg_pretrain/exp_debug.yaml --output_dir output/ft_icfg/tta_pretrain/exp_debug --bs 3 --epo 10 --checkpoint checkpoints/pretrained/checkpoint_31.pth --tta
+
+    3. CUDA_VISIBLE_DEVICES=2 python3 tta.py --task itr_rstp --config tta_configs/TTA_Retrieval_rstp_pretrain/exp_debug.yaml --output_dir output/ft_rstp/tta_pretrain/exp_debug --bs 3 --epo 10 --checkpoint checkpoints/pretrained/checkpoint_31.pth --tta
 
 
 # exp
-
-## tta_debug
-    <!-- python3 run.py --task "tta_debug" --tta --checkpoint "checkpoint/cmp.pth" --bs 1 --epo 10 --lr 1e-4 --seed 42 -->
-    <!-- CUDA_VISIBLE_DEVICES=1 python3 tta.py --config configs/tta_debug.yaml --task tta_debug --output_dir output/tta_debug/2025081715503 --checkpoint checkpoint/cmp.pth --bs 3 --epo 10 --lr 0.0001 --seed 42 --tta -->
 
 ## exp0
 **entropy**

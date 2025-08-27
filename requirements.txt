@@ -1,7 +1,8 @@
 timm==0.4.9
 transformers==4.12.5
 ruamel_yaml
-opencv-python
+numpy==1.26.4
+opencv-python==4.6.0.66
 scikit-image
 matplotlib
 audtorch

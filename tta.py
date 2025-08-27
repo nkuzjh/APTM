@@ -44,7 +44,7 @@ from tta.eval import evaluation_itc, evaluation_itm
 
 
 
-# os.environ["CUDA_VISIBLE_DEVICES"] = "2"
+os.environ["CUDA_VISIBLE_DEVICES"] = "2"
 
 
 
@@ -123,50 +123,65 @@ def main(args, config):
 
     print("### Inference ITC similiarity matrix")
     ## run only at first time to avoid error, then using np.load() to load itm input features.
-    # sims_matrix_t2i, image_embeds, text_embeds, text_atts = evaluation_itc(
-    #     model,
-    #     test_loader,
-    #     tokenizer,
-    #     device,
-    #     config,
-    # )
-    # np.save("/data/jiahao/APTM_TTA_CUHK/debug_embeddings/sims_matrix_t2i.npy", sims_matrix_t2i.detach().cpu().numpy())
-    # np.save("/data/jiahao/APTM_TTA_CUHK/debug_embeddings/image_embeds.npy", image_embeds.detach().cpu().numpy())
-    # np.save("/data/jiahao/APTM_TTA_CUHK/debug_embeddings/text_embeds.npy", text_embeds.detach().cpu().numpy())
-    # np.save("/data/jiahao/APTM_TTA_CUHK/debug_embeddings/text_atts.npy", text_atts.detach().cpu().numpy())
-    sims_matrix_t2i = torch.from_numpy(np.load("/data/jiahao/APTM_TTA_CUHK/debug_embeddings/sims_matrix_t2i.npy"))#.to(device)
-    image_embeds = torch.from_numpy(np.load("/data/jiahao/APTM_TTA_CUHK/debug_embeddings/image_embeds.npy"))#.to(device)
-    text_embeds = torch.from_numpy(np.load("/data/jiahao/APTM_TTA_CUHK/debug_embeddings/text_embeds.npy"))#.to(device)
-    text_atts = torch.from_numpy(np.load("/data/jiahao/APTM_TTA_CUHK/debug_embeddings/text_atts.npy"))#.to(device)
+    sims_matrix_t2i, image_embeds, text_embeds, text_atts = evaluation_itc(
+        model,
+        test_loader,
+        tokenizer,
+        device,
+        config,
+    )
+    if args.task == "itr_icfg":
+        if "pretrain" in args.config:
+            temp_feature_dir = "APTM_TTA_ICFG_pretrain"
+        else:
+            temp_feature_dir = "APTM_TTA_ICFG"
+    elif args.task == "itr_rstp":
+        if "pretrain" in args.config:
+            temp_feature_dir = "APTM_TTA_RSTP_pretrain"
+        else:
+            temp_feature_dir = "APTM_TTA_RSTP"
+    elif args.task == "itr_cuhk":
+        if "pretrain" in args.config:
+            temp_feature_dir = "APTM_TTA_CUHK_pretrain"
+        else:
+            temp_feature_dir = "APTM_TTA_CUHK"
+    np.save(f"/data/jiahao/{temp_feature_dir}/debug_embeddings/sims_matrix_t2i.npy", sims_matrix_t2i.detach().cpu().numpy())
+    np.save(f"/data/jiahao/{temp_feature_dir}/debug_embeddings/image_embeds.npy", image_embeds.detach().cpu().numpy())
+    np.save(f"/data/jiahao/{temp_feature_dir}/debug_embeddings/text_embeds.npy", text_embeds.detach().cpu().numpy())
+    np.save(f"/data/jiahao/{temp_feature_dir}/debug_embeddings/text_atts.npy", text_atts.detach().cpu().numpy())
+    sims_matrix_t2i = torch.from_numpy(np.load(f"/data/jiahao/{temp_feature_dir}/debug_embeddings/sims_matrix_t2i.npy"))#.to(device)
+    image_embeds = torch.from_numpy(np.load(f"/data/jiahao/{temp_feature_dir}/debug_embeddings/image_embeds.npy"))#.to(device)
+    text_embeds = torch.from_numpy(np.load(f"/data/jiahao/{temp_feature_dir}/debug_embeddings/text_embeds.npy"))#.to(device)
+    text_atts = torch.from_numpy(np.load(f"/data/jiahao/{temp_feature_dir}/debug_embeddings/text_atts.npy"))#.to(device)
 
-    # sims_test_result = mAP(sims_matrix_t2i, test_loader.dataset.g_pids, test_loader.dataset.q_pids, table)
-    # table.add_row([
-    #     -999, sims_test_result['R1'], sims_test_result['R5'], sims_test_result['R10'], sims_test_result['mAP'], sims_test_result['mINP']
-    # ])
-    # print("### Zero-Shot ITC Score: ")
-    # print(table)
-
-
-    # labels = test_loader.dataset.g_pids, test_loader.dataset.q_pids #TODO
-
-
-    # score_test_t2i = evaluation_itm(
-    #     model,
-    #     device, config, args,
-    #     sims_matrix_t2i, image_embeds, text_embeds, text_atts
-    # )
-    # test_result = mAP(score_test_t2i, test_loader.dataset.g_pids, test_loader.dataset.q_pids, table)
-    # table.add_row([
-    #     -999, test_result['R1'], test_result['R5'], test_result['R10'], test_result['mAP'], test_result['mINP']
-    # ])
-    # print("### Zero-Shot ITM Score: ")
-    # print(table)
-
-
-    table.add_row([-999, 70.760, 87.378, 92.268, 63.849, 48.174])
-    table.add_row([-999, 76.170, 89.457, 93.600, 65.570, 47.372])
-    print("### Zero-Shot Score: ")
+    sims_test_result = mAP(sims_matrix_t2i, test_loader.dataset.g_pids, test_loader.dataset.q_pids, table)
+    table.add_row([
+        -999, sims_test_result['R1'], sims_test_result['R5'], sims_test_result['R10'], sims_test_result['mAP'], sims_test_result['mINP']
+    ])
+    print("### Zero-Shot ITC Score: ")
     print(table)
+
+
+    labels = test_loader.dataset.g_pids, test_loader.dataset.q_pids #TODO
+
+
+    score_test_t2i = evaluation_itm(
+        model,
+        device, config, args,
+        sims_matrix_t2i, image_embeds, text_embeds, text_atts
+    )
+    test_result = mAP(score_test_t2i, test_loader.dataset.g_pids, test_loader.dataset.q_pids, table)
+    table.add_row([
+        -999, test_result['R1'], test_result['R5'], test_result['R10'], test_result['mAP'], test_result['mINP']
+    ])
+    print("### Zero-Shot ITM Score: ")
+    print(table)
+
+    ## CUHK
+    # table.add_row([-999, 70.760, 87.378, 92.268, 63.849, 48.174])
+    # table.add_row([-999, 76.170, 89.457, 93.600, 65.570, 47.372])
+    # print("### Zero-Shot Score: ")
+    # print(table)
     # ### Zero-Shot ITM Score:
     # # +-------+--------+--------+--------+--------+--------+
     # # | epoch |   R1   |   R5   |  R10   |  mAP   |  mINP  |

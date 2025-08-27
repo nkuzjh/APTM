@@ -1,1 +1,6 @@
-sh: 1: CUDA_VISIBLE_DEVICES: not found
+Traceback (most recent call last):
+  File "/home/jiahao/task/APTM/run_tta.py", line 115, in <module>
+    run(args)
+  File "/home/jiahao/task/APTM/run_tta.py", line 72, in run
+    assert os.path.exists("images/CUHK-PEDES")
+AssertionError
