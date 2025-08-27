@@ -1,6 +1,8 @@
 data/
 checkpoints/
 images/
+images
+
 
 __pycache__/optim.cpython-38.pyc
 __pycache__/reTools.cpython-38.pyc
