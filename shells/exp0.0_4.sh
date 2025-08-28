@@ -11,7 +11,7 @@ dataset_name="itr_cuhk"
 exp_names=(
     # "tta_exp0"
     # "tta_exp0.1"
-    "tta_exp0.2"
+    # "tta_exp0.2"
     "tta_exp0.3"
     "tta_exp0.4"
 )
@@ -28,7 +28,7 @@ do
 
 
     # python3 run_tta.py --task "itr_cuhk" --tta --config tta_configs/TTA_Retrieval_cuhk/exp_debug.yaml --output_dir "output/ft_cuhk/tta/exp_debug" --checkpoint "checkpoints/ft_cuhk/checkpoint_best.pth"
-    nohup python3 run_tta.py --task $dataset_name --tta  --config "tta_configs/TTA_Retrieval_cuhk/$exp_name.yaml" --output_dir "output/ft_cuhk/tta/$exp_name" --checkpoint "checkpoints/ft_cuhk/checkpoint_best.pth" > "logs/TTA_Retrieval_cuhk/$exp_name.log" 2>&1 &
+    nohup python3 run_tta.py --device_no "1" --task $dataset_name --tta  --config "tta_configs/TTA_Retrieval_cuhk/$exp_name.yaml" --output_dir "output/ft_cuhk/tta/$exp_name" --checkpoint "checkpoints/ft_cuhk/checkpoint_best.pth" > "logs/TTA_Retrieval_cuhk/$exp_name.log" 2>&1 &
 
 
     # 等待当前任务完成

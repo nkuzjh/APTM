@@ -1,6 +1,4 @@
 Traceback (most recent call last):
-  File "/home/jiahao/task/APTM/run_tta.py", line 115, in <module>
-    run(args)
-  File "/home/jiahao/task/APTM/run_tta.py", line 72, in run
-    assert os.path.exists("images/CUHK-PEDES")
-AssertionError
+  File "/home/jiahao/task/APTM/tta.py", line 322, in <module>
+    config = yaml.load(open(args.config, 'r'))
+FileNotFoundError: [Errno 2] No such file or directory: 'tta_configs/TTA_Retrieval_cuhk/tta_exp4.6.1.yaml'

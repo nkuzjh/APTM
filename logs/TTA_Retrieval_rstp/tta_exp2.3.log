@@ -1,0 +1,4 @@
+usage: run_tta.py [-h] --task TASK --device_no DEVICE_NO [--bs BS] [--epo EPO]
+                  [--seed SEED] [--checkpoint CHECKPOINT] --output_dir
+                  OUTPUT_DIR [--evaluate] [--tta] [--config CONFIG]
+run_tta.py: error: the following arguments are required: --device_no

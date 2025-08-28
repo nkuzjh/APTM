@@ -44,7 +44,7 @@ from tta.eval import evaluation_itc, evaluation_itm
 
 
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "2"
+# os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 
 
@@ -145,6 +145,7 @@ def main(args, config):
             temp_feature_dir = "APTM_TTA_CUHK_pretrain"
         else:
             temp_feature_dir = "APTM_TTA_CUHK"
+    os.makedirs(f"/data/jiahao/{temp_feature_dir}/debug_embeddings/", exist_ok=True)
     np.save(f"/data/jiahao/{temp_feature_dir}/debug_embeddings/sims_matrix_t2i.npy", sims_matrix_t2i.detach().cpu().numpy())
     np.save(f"/data/jiahao/{temp_feature_dir}/debug_embeddings/image_embeds.npy", image_embeds.detach().cpu().numpy())
     np.save(f"/data/jiahao/{temp_feature_dir}/debug_embeddings/text_embeds.npy", text_embeds.detach().cpu().numpy())
@@ -182,13 +183,35 @@ def main(args, config):
     # table.add_row([-999, 76.170, 89.457, 93.600, 65.570, 47.372])
     # print("### Zero-Shot Score: ")
     # print(table)
-    # ### Zero-Shot ITM Score:
+    # ### Zero-Shot ITM Score: CUHK_finetuned
     # # +-------+--------+--------+--------+--------+--------+
     # # | epoch |   R1   |   R5   |  R10   |  mAP   |  mINP  |
     # # +-------+--------+--------+--------+--------+--------+
     # # |  -999 | 70.760 | 87.378 | 92.268 | 63.849 | 48.174 |
     # # |  -999 | 76.170 | 89.457 | 93.600 | 65.570 | 47.372 |
     # # +-------+--------+--------+--------+--------+--------+
+    # ### Zero-Shot ITM Score: CUHK_pretrained
+    # +-------+-------+--------+--------+-------+-------+
+    # | epoch |   R1  |   R5   |  R10   |  mAP  |  mINP |
+    # +-------+-------+--------+--------+-------+-------+
+    # |  -999 | 5.133 | 11.127 | 15.156 | 4.918 | 2.297 |
+    # |  -999 | 3.509 | 6.725  | 8.869  | 3.266 | 1.505 |
+
+    # ### Zero-Shot ITM Score: ICFG_finetuned
+    # +-------+--------+--------+--------+--------+--------+
+    # | epoch |   R1   |   R5   |  R10   |  mAP   |  mINP  |
+    # +-------+--------+--------+--------+--------+--------+
+    # |  -999 | 62.999 | 79.484 | 85.041 | 40.410 | 10.184 |
+    # |  -999 | 68.188 | 82.885 | 87.500 | 40.507 | 9.104  |
+    # +-------+--------+--------+--------+--------+--------+
+
+    # ### Zero-Shot ITM Score: RSTP_finetuned
+    # +-------+--------+--------+--------+--------+--------+
+    # | epoch |   R1   |   R5   |  R10   |  mAP   |  mINP  |
+    # +-------+--------+--------+--------+--------+--------+
+    # |  -999 | 59.000 | 79.650 | 88.500 | 47.231 | 25.876 |
+    # |  -999 | 66.450 | 85.600 | 90.600 | 50.642 | 25.526 |
+    # +-------+--------+--------+--------+--------+--------+
 
 
     if args.tta:
@@ -197,7 +220,7 @@ def main(args, config):
 
         print("### Compute ITC Uncertainty")
         recall_types, ss_idxs_list, uncertaintys_list, proba_top1_sim_list, proba_inversed_sim_list  = preprocess_tta_coefficients(config, sims_matrix_t2i)
-        #len(ss_idxs_list) = 6156
+        #cuhk_finetuned 6156->6156 #cuhk_pretrained 6156->? #icfg_finetuned 19848->? #rstp_finetuned 2000->?
 
         print("### Creating tta dataset")
         tta_dataset = create_tta_dataset(
