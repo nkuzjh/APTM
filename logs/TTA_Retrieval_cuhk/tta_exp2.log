@@ -1,6 +1,54 @@
+Not using distributed mode
+### Hyper-parameters:
+     seed: 42
+     device: cuda
+     output_dir: output/ft_cuhk/tta/tta_exp2
+     batch_size_tta: 16
+     epochs: 30
+     lr: 0.001
+### Creating model
+use_swin
+load checkpoint from checkpoints/ft_cuhk/checkpoint_best.pth
+missing_keys:  []
+vision_encoder missing_keys:  []
+unexpected_keys:  []
+     Total Params Sum:  214456629
+### Creating test dataset
+     test_dataset: 3074
+### Creating test dataloader
+### be careful: func create_loader returns a list length of 1
+     test_loader: 21
+### Inference ITC similiarity matrix
+     Computing text features for evaluation
 Traceback (most recent call last):
-  File "/home/jiahao/task/APTM/run_tta.py", line 115, in <module>
-    run(args)
-  File "/home/jiahao/task/APTM/run_tta.py", line 72, in run
-    assert os.path.exists("images/CUHK-PEDES")
-AssertionError
+  File "/home/jiahao/task/APTM/tta.py", line 325, in <module>
+    main(args, config)
+  File "/home/jiahao/task/APTM/tta.py", line 126, in main
+    sims_matrix_t2i, image_embeds, text_embeds, text_atts = evaluation_itc(
+  File "/home/jiahao/miniconda3/envs/aptm/lib/python3.9/site-packages/torch/autograd/grad_mode.py", line 28, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jiahao/task/APTM/tta/eval.py", line 31, in evaluation_itc
+    text_embed = model.get_text_embeds(text_input.input_ids, text_input.attention_mask)
+  File "/home/jiahao/task/APTM/models/aptm.py", line 280, in get_text_embeds
+    return encoder(text_ids, attention_mask=text_atts, return_dict=True, mode='text').last_hidden_state
+  File "/home/jiahao/miniconda3/envs/aptm/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/jiahao/task/APTM/models/bert.py", line 1057, in forward
+    encoder_outputs = self.encoder(
+  File "/home/jiahao/miniconda3/envs/aptm/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/jiahao/task/APTM/models/bert.py", line 603, in forward
+    layer_outputs = layer_module(
+  File "/home/jiahao/miniconda3/envs/aptm/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/jiahao/task/APTM/models/bert.py", line 478, in forward
+    self_attention_outputs = self.attention(
+  File "/home/jiahao/miniconda3/envs/aptm/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/jiahao/task/APTM/models/bert.py", line 408, in forward
+    self_outputs = self.self(
+  File "/home/jiahao/miniconda3/envs/aptm/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/jiahao/task/APTM/models/bert.py", line 307, in forward
+    attention_scores = torch.matmul(query_layer, key_layer.transpose(-1, -2))
+RuntimeError: CUDA out of memory. Tried to allocate 124.00 MiB (GPU 0; 23.55 GiB total capacity; 1.29 GiB already allocated; 60.81 MiB free; 1.35 GiB reserved in total by PyTorch)
