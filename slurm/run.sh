@@ -1,6 +1,6 @@
 #!/bin/bash
 # SBATCH --job-name              aptm_tta
-# SBATCH --partition             gbunchQ1
+# SBATCH --partition             gbunchQ
 # SBATCH --nodes                 1
 # SBATCH --tasks-per-node        1
 # SBATCH --time                  48:00:00

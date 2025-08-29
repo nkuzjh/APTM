@@ -1760,3 +1760,204 @@ unexpected_keys:  []
 |   17  | 73.034 | 89.051 | 93.161 | 64.541 | 47.499 |
 +-------+--------+--------+--------+--------+--------+
      logs:  {'epo': 17, 'R1': 73.034, 'R5': 89.051, 'R10': 93.161, 'mAP': 64.541, 'mINP': 47.499, 'lr': 9e-06, 'entropy': 0.270791, 'loss': 2.794084}
+      TTA Epoch: [18] [  0/192]  eta: 0:01:44  lr: 0.000008  entropy: 0.3310  loss: 2.8165  time: 0.5425  data: 0.4387  max mem: 5880
+      TTA Epoch: [18] [100/192]  eta: 0:00:04  lr: 0.000008  entropy: 0.2940  loss: 2.8028  time: 0.0473  data: 0.0001  max mem: 5880
+      TTA Epoch: [18] [191/192]  eta: 0:00:00  lr: 0.000008  entropy: 0.2385  loss: 2.7820  time: 0.0413  data: 0.0001  max mem: 5880
+      TTA Epoch: [18] Total time: 0:00:09 (0.0497 s / it)
+     Averaged stats: lr: 0.0000  entropy: 0.2691  loss: 2.7934
+     itm tta time 0:00:09
+     Computing matching score
+      ITM Evaluation: [   0/6156]  eta: 0:04:34    time: 0.0446  data: 0.0108  max mem: 5880
+      ITM Evaluation: [ 100/6156]  eta: 0:03:17    time: 0.0324  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 200/6156]  eta: 0:03:13    time: 0.0326  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 300/6156]  eta: 0:03:11    time: 0.0330  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 400/6156]  eta: 0:03:08    time: 0.0328  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 500/6156]  eta: 0:03:04    time: 0.0323  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 600/6156]  eta: 0:03:01    time: 0.0322  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 700/6156]  eta: 0:02:57    time: 0.0323  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 800/6156]  eta: 0:02:54    time: 0.0323  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 900/6156]  eta: 0:02:51    time: 0.0330  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1000/6156]  eta: 0:02:47    time: 0.0326  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1100/6156]  eta: 0:02:44    time: 0.0330  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1200/6156]  eta: 0:02:41    time: 0.0326  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1300/6156]  eta: 0:02:38    time: 0.0326  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1400/6156]  eta: 0:02:35    time: 0.0324  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1500/6156]  eta: 0:02:31    time: 0.0325  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1600/6156]  eta: 0:02:28    time: 0.0329  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1700/6156]  eta: 0:02:25    time: 0.0324  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1800/6156]  eta: 0:02:21    time: 0.0324  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1900/6156]  eta: 0:02:18    time: 0.0323  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2000/6156]  eta: 0:02:15    time: 0.0324  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2100/6156]  eta: 0:02:12    time: 0.0327  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2200/6156]  eta: 0:02:08    time: 0.0325  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2300/6156]  eta: 0:02:05    time: 0.0328  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2400/6156]  eta: 0:02:02    time: 0.0327  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2500/6156]  eta: 0:01:59    time: 0.0326  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2600/6156]  eta: 0:01:55    time: 0.0330  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2700/6156]  eta: 0:01:52    time: 0.0329  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2800/6156]  eta: 0:01:49    time: 0.0331  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2900/6156]  eta: 0:01:46    time: 0.0330  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3000/6156]  eta: 0:01:43    time: 0.0328  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3100/6156]  eta: 0:01:39    time: 0.0323  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3200/6156]  eta: 0:01:36    time: 0.0321  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3300/6156]  eta: 0:01:33    time: 0.0330  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3400/6156]  eta: 0:01:29    time: 0.0330  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3500/6156]  eta: 0:01:26    time: 0.0332  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3600/6156]  eta: 0:01:23    time: 0.0325  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3700/6156]  eta: 0:01:20    time: 0.0324  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3800/6156]  eta: 0:01:16    time: 0.0327  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3900/6156]  eta: 0:01:13    time: 0.0327  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4000/6156]  eta: 0:01:10    time: 0.0326  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4100/6156]  eta: 0:01:07    time: 0.0324  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4200/6156]  eta: 0:01:03    time: 0.0316  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4300/6156]  eta: 0:01:00    time: 0.0317  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4400/6156]  eta: 0:00:57    time: 0.0320  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4500/6156]  eta: 0:00:54    time: 0.0321  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4600/6156]  eta: 0:00:50    time: 0.0323  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4700/6156]  eta: 0:00:47    time: 0.0327  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4800/6156]  eta: 0:00:44    time: 0.0316  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4900/6156]  eta: 0:00:40    time: 0.0322  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5000/6156]  eta: 0:00:37    time: 0.0322  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5100/6156]  eta: 0:00:34    time: 0.0323  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5200/6156]  eta: 0:00:31    time: 0.0320  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5300/6156]  eta: 0:00:27    time: 0.0323  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5400/6156]  eta: 0:00:24    time: 0.0319  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5500/6156]  eta: 0:00:21    time: 0.0320  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5600/6156]  eta: 0:00:18    time: 0.0318  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5700/6156]  eta: 0:00:14    time: 0.0319  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5800/6156]  eta: 0:00:11    time: 0.0324  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5900/6156]  eta: 0:00:08    time: 0.0319  data: 0.0000  max mem: 5880
+      ITM Evaluation: [6000/6156]  eta: 0:00:05    time: 0.0320  data: 0.0000  max mem: 5880
+      ITM Evaluation: [6100/6156]  eta: 0:00:01    time: 0.0322  data: 0.0000  max mem: 5880
+      ITM Evaluation: [6155/6156]  eta: 0:00:00    time: 0.0322  data: 0.0000  max mem: 5880
+      ITM Evaluation: Total time: 0:03:20 (0.0325 s / it)
+     total_time 200.0874559879303
+     Computing matching score time 0:03:20
+### TTA ITM Score: 
++-------+--------+--------+--------+--------+--------+
+| epoch |   R1   |   R5   |  R10   |  mAP   |  mINP  |
++-------+--------+--------+--------+--------+--------+
+|  -999 | 70.760 | 87.378 | 92.268 | 63.849 | 48.174 |
+|  -999 | 76.170 | 89.457 | 93.600 | 65.570 | 47.372 |
+|   0   | 75.617 | 89.246 | 93.583 | 66.006 | 48.787 |
+|   1   | 74.496 | 88.954 | 93.145 | 65.319 | 48.294 |
+|   2   | 74.058 | 88.970 | 93.194 | 65.159 | 48.172 |
+|   3   | 74.090 | 89.035 | 93.145 | 65.120 | 48.113 |
+|   4   | 73.960 | 89.003 | 93.129 | 65.069 | 48.078 |
+|   5   | 73.798 | 89.068 | 93.161 | 64.997 | 48.007 |
+|   6   | 73.733 | 89.100 | 93.161 | 64.974 | 47.969 |
+|   7   | 73.473 | 89.133 | 93.129 | 64.863 | 47.897 |
+|   8   | 73.457 | 89.116 | 93.112 | 64.848 | 47.845 |
+|   9   | 73.554 | 89.100 | 93.080 | 64.862 | 47.850 |
+|   10  | 73.457 | 89.068 | 93.080 | 64.815 | 47.793 |
+|   11  | 73.392 | 89.084 | 93.064 | 64.774 | 47.756 |
+|   12  | 73.343 | 89.084 | 93.080 | 64.751 | 47.729 |
+|   13  | 73.278 | 89.084 | 93.096 | 64.704 | 47.674 |
+|   14  | 73.164 | 89.084 | 93.096 | 64.662 | 47.630 |
+|   15  | 73.067 | 89.084 | 93.112 | 64.595 | 47.578 |
+|   16  | 73.067 | 89.051 | 93.129 | 64.569 | 47.534 |
+|   17  | 73.034 | 89.051 | 93.161 | 64.541 | 47.499 |
+|   18  | 73.051 | 89.068 | 93.145 | 64.527 | 47.463 |
++-------+--------+--------+--------+--------+--------+
+     logs:  {'epo': 18, 'R1': 73.051, 'R5': 89.068, 'R10': 93.145, 'mAP': 64.527, 'mINP': 47.463, 'lr': 8e-06, 'entropy': 0.269074, 'loss': 2.793445}
+      TTA Epoch: [19] [  0/192]  eta: 0:01:48  lr: 0.000008  entropy: 0.3051  loss: 2.8067  time: 0.5638  data: 0.4336  max mem: 5880
+      TTA Epoch: [19] [100/192]  eta: 0:00:04  lr: 0.000007  entropy: 0.2971  loss: 2.8041  time: 0.0514  data: 0.0001  max mem: 5880
+      TTA Epoch: [19] [191/192]  eta: 0:00:00  lr: 0.000007  entropy: 0.0957  loss: 2.7292  time: 0.0524  data: 0.0001  max mem: 5880
+      TTA Epoch: [19] Total time: 0:00:09 (0.0519 s / it)
+     Averaged stats: lr: 0.0000  entropy: 0.2660  loss: 2.7923
+     itm tta time 0:00:10
+     Computing matching score
+      ITM Evaluation: [   0/6156]  eta: 0:04:04    time: 0.0396  data: 0.0068  max mem: 5880
+      ITM Evaluation: [ 100/6156]  eta: 0:03:18    time: 0.0318  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 200/6156]  eta: 0:03:13    time: 0.0317  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 300/6156]  eta: 0:03:09    time: 0.0326  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 400/6156]  eta: 0:03:06    time: 0.0320  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 500/6156]  eta: 0:03:02    time: 0.0321  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 600/6156]  eta: 0:02:59    time: 0.0320  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 700/6156]  eta: 0:02:56    time: 0.0316  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 800/6156]  eta: 0:02:53    time: 0.0325  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 900/6156]  eta: 0:02:49    time: 0.0323  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1000/6156]  eta: 0:02:46    time: 0.0318  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1100/6156]  eta: 0:02:43    time: 0.0318  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1200/6156]  eta: 0:02:39    time: 0.0317  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1300/6156]  eta: 0:02:36    time: 0.0317  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1400/6156]  eta: 0:02:33    time: 0.0319  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1500/6156]  eta: 0:02:29    time: 0.0318  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1600/6156]  eta: 0:02:26    time: 0.0324  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1700/6156]  eta: 0:02:23    time: 0.0320  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1800/6156]  eta: 0:02:20    time: 0.0322  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1900/6156]  eta: 0:02:16    time: 0.0321  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2000/6156]  eta: 0:02:13    time: 0.0324  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2100/6156]  eta: 0:02:10    time: 0.0325  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2200/6156]  eta: 0:02:07    time: 0.0317  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2300/6156]  eta: 0:02:03    time: 0.0322  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2400/6156]  eta: 0:02:00    time: 0.0348  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2500/6156]  eta: 0:01:57    time: 0.0323  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2600/6156]  eta: 0:01:54    time: 0.0330  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2700/6156]  eta: 0:01:51    time: 0.0319  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2800/6156]  eta: 0:01:48    time: 0.0319  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2900/6156]  eta: 0:01:44    time: 0.0322  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3000/6156]  eta: 0:01:41    time: 0.0323  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3100/6156]  eta: 0:01:38    time: 0.0329  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3200/6156]  eta: 0:01:35    time: 0.0324  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3300/6156]  eta: 0:01:32    time: 0.0322  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3400/6156]  eta: 0:01:28    time: 0.0328  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3500/6156]  eta: 0:01:25    time: 0.0330  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3600/6156]  eta: 0:01:22    time: 0.0333  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3700/6156]  eta: 0:01:19    time: 0.0328  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3800/6156]  eta: 0:01:16    time: 0.0318  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3900/6156]  eta: 0:01:12    time: 0.0326  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4000/6156]  eta: 0:01:09    time: 0.0330  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4100/6156]  eta: 0:01:06    time: 0.0322  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4200/6156]  eta: 0:01:03    time: 0.0329  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4300/6156]  eta: 0:01:00    time: 0.0325  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4400/6156]  eta: 0:00:56    time: 0.0326  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4500/6156]  eta: 0:00:53    time: 0.0325  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4600/6156]  eta: 0:00:50    time: 0.0324  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4700/6156]  eta: 0:00:47    time: 0.0330  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4800/6156]  eta: 0:00:43    time: 0.0329  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4900/6156]  eta: 0:00:40    time: 0.0321  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5000/6156]  eta: 0:00:37    time: 0.0333  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5100/6156]  eta: 0:00:34    time: 0.0330  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5200/6156]  eta: 0:00:30    time: 0.0325  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5300/6156]  eta: 0:00:27    time: 0.0327  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5400/6156]  eta: 0:00:24    time: 0.0320  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5500/6156]  eta: 0:00:21    time: 0.0317  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5600/6156]  eta: 0:00:18    time: 0.0319  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5700/6156]  eta: 0:00:14    time: 0.0317  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5800/6156]  eta: 0:00:11    time: 0.0320  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5900/6156]  eta: 0:00:08    time: 0.0322  data: 0.0000  max mem: 5880
+      ITM Evaluation: [6000/6156]  eta: 0:00:05    time: 0.0319  data: 0.0000  max mem: 5880
+      ITM Evaluation: [6100/6156]  eta: 0:00:01    time: 0.0319  data: 0.0000  max mem: 5880
+      ITM Evaluation: [6155/6156]  eta: 0:00:00    time: 0.0315  data: 0.0000  max mem: 5880
+      ITM Evaluation: Total time: 0:03:19 (0.0324 s / it)
+     total_time 199.28579235076904
+     Computing matching score time 0:03:19
+### TTA ITM Score: 
++-------+--------+--------+--------+--------+--------+
+| epoch |   R1   |   R5   |  R10   |  mAP   |  mINP  |
++-------+--------+--------+--------+--------+--------+
+|  -999 | 70.760 | 87.378 | 92.268 | 63.849 | 48.174 |
+|  -999 | 76.170 | 89.457 | 93.600 | 65.570 | 47.372 |
+|   0   | 75.617 | 89.246 | 93.583 | 66.006 | 48.787 |
+|   1   | 74.496 | 88.954 | 93.145 | 65.319 | 48.294 |
+|   2   | 74.058 | 88.970 | 93.194 | 65.159 | 48.172 |
+|   3   | 74.090 | 89.035 | 93.145 | 65.120 | 48.113 |
+|   4   | 73.960 | 89.003 | 93.129 | 65.069 | 48.078 |
+|   5   | 73.798 | 89.068 | 93.161 | 64.997 | 48.007 |
+|   6   | 73.733 | 89.100 | 93.161 | 64.974 | 47.969 |
+|   7   | 73.473 | 89.133 | 93.129 | 64.863 | 47.897 |
+|   8   | 73.457 | 89.116 | 93.112 | 64.848 | 47.845 |
+|   9   | 73.554 | 89.100 | 93.080 | 64.862 | 47.850 |
+|   10  | 73.457 | 89.068 | 93.080 | 64.815 | 47.793 |
+|   11  | 73.392 | 89.084 | 93.064 | 64.774 | 47.756 |
+|   12  | 73.343 | 89.084 | 93.080 | 64.751 | 47.729 |
+|   13  | 73.278 | 89.084 | 93.096 | 64.704 | 47.674 |
+|   14  | 73.164 | 89.084 | 93.096 | 64.662 | 47.630 |
+|   15  | 73.067 | 89.084 | 93.112 | 64.595 | 47.578 |
+|   16  | 73.067 | 89.051 | 93.129 | 64.569 | 47.534 |
+|   17  | 73.034 | 89.051 | 93.161 | 64.541 | 47.499 |
+|   18  | 73.051 | 89.068 | 93.145 | 64.527 | 47.463 |
+|   19  | 73.034 | 89.051 | 93.145 | 64.517 | 47.467 |
++-------+--------+--------+--------+--------+--------+
+     logs:  {'epo': 19, 'R1': 73.034, 'R5': 89.051, 'R10': 93.145, 'mAP': 64.517, 'mINP': 47.467, 'lr': 7e-06, 'entropy': 0.265964, 'loss': 2.79229}
