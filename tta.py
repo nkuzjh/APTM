@@ -49,7 +49,9 @@ from tta.eval import evaluation_itc, evaluation_itm
 
 
 def main(args, config):
-    utils.init_distributed_mode(args)
+    # utils.init_distributed_mode(args)
+    print('Not using distributed mode')
+    args.distributed = False
 
     print("### Hyper-parameters:")
 
