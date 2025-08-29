@@ -9,10 +9,10 @@ Not using distributed mode
 ### Creating model
 use_swin
 load checkpoint from checkpoints/ft_cuhk/checkpoint_best.pth
-missing_keys:  []
+missing_keys:  ['uncertainty_temper', 'prompt_learning_embedding']
 vision_encoder missing_keys:  []
 unexpected_keys:  []
-     Total Params Sum:  214456629
+     Total Params Sum:  214457398
 ### Creating test dataset
      test_dataset: 3074
 ### Creating test dataloader
@@ -20,35 +20,114 @@ unexpected_keys:  []
      test_loader: 21
 ### Inference ITC similiarity matrix
      Computing text features for evaluation
-Traceback (most recent call last):
-  File "/home/jiahao/task/APTM/tta.py", line 325, in <module>
-    main(args, config)
-  File "/home/jiahao/task/APTM/tta.py", line 126, in main
-    sims_matrix_t2i, image_embeds, text_embeds, text_atts = evaluation_itc(
-  File "/home/jiahao/miniconda3/envs/aptm/lib/python3.9/site-packages/torch/autograd/grad_mode.py", line 28, in decorate_context
-    return func(*args, **kwargs)
-  File "/home/jiahao/task/APTM/tta/eval.py", line 31, in evaluation_itc
-    text_embed = model.get_text_embeds(text_input.input_ids, text_input.attention_mask)
-  File "/home/jiahao/task/APTM/models/aptm.py", line 280, in get_text_embeds
-    return encoder(text_ids, attention_mask=text_atts, return_dict=True, mode='text').last_hidden_state
-  File "/home/jiahao/miniconda3/envs/aptm/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
-    return forward_call(*input, **kwargs)
-  File "/home/jiahao/task/APTM/models/bert.py", line 1057, in forward
-    encoder_outputs = self.encoder(
-  File "/home/jiahao/miniconda3/envs/aptm/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
-    return forward_call(*input, **kwargs)
-  File "/home/jiahao/task/APTM/models/bert.py", line 603, in forward
-    layer_outputs = layer_module(
-  File "/home/jiahao/miniconda3/envs/aptm/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
-    return forward_call(*input, **kwargs)
-  File "/home/jiahao/task/APTM/models/bert.py", line 478, in forward
-    self_attention_outputs = self.attention(
-  File "/home/jiahao/miniconda3/envs/aptm/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
-    return forward_call(*input, **kwargs)
-  File "/home/jiahao/task/APTM/models/bert.py", line 408, in forward
-    self_outputs = self.self(
-  File "/home/jiahao/miniconda3/envs/aptm/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
-    return forward_call(*input, **kwargs)
-  File "/home/jiahao/task/APTM/models/bert.py", line 307, in forward
-    attention_scores = torch.matmul(query_layer, key_layer.transpose(-1, -2))
-RuntimeError: CUDA out of memory. Tried to allocate 124.00 MiB (GPU 0; 23.55 GiB total capacity; 1.29 GiB already allocated; 60.81 MiB free; 1.35 GiB reserved in total by PyTorch)
+     Computing image features for evaluation
+/home/jiahao/task/APTM/reTools.py:308: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  similarity = torch.tensor(scores_t2i)
+     Computing features time 0:00:08
+### Zero-Shot ITC Score: 
++-------+--------+--------+--------+--------+--------+
+| epoch |   R1   |   R5   |  R10   |  mAP   |  mINP  |
++-------+--------+--------+--------+--------+--------+
+|  -999 | 70.760 | 87.378 | 92.268 | 63.849 | 48.174 |
++-------+--------+--------+--------+--------+--------+
+     Computing matching score
+      ITM Evaluation: [   0/6156]  eta: 0:04:12    time: 0.0411  data: 0.0033  max mem: 5880
+      ITM Evaluation: [ 100/6156]  eta: 0:03:14    time: 0.0318  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 200/6156]  eta: 0:03:13    time: 0.0339  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 300/6156]  eta: 0:03:13    time: 0.0351  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 400/6156]  eta: 0:03:12    time: 0.0343  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 500/6156]  eta: 0:03:10    time: 0.0351  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 600/6156]  eta: 0:03:07    time: 0.0332  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 700/6156]  eta: 0:03:03    time: 0.0336  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 800/6156]  eta: 0:03:01    time: 0.0360  data: 0.0000  max mem: 5880
+      ITM Evaluation: [ 900/6156]  eta: 0:02:58    time: 0.0353  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1000/6156]  eta: 0:02:56    time: 0.0334  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1100/6156]  eta: 0:02:52    time: 0.0328  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1200/6156]  eta: 0:02:47    time: 0.0309  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1300/6156]  eta: 0:02:42    time: 0.0309  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1400/6156]  eta: 0:02:38    time: 0.0311  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1500/6156]  eta: 0:02:34    time: 0.0317  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1600/6156]  eta: 0:02:30    time: 0.0309  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1700/6156]  eta: 0:02:27    time: 0.0308  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1800/6156]  eta: 0:02:23    time: 0.0306  data: 0.0000  max mem: 5880
+      ITM Evaluation: [1900/6156]  eta: 0:02:19    time: 0.0309  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2000/6156]  eta: 0:02:16    time: 0.0328  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2100/6156]  eta: 0:02:12    time: 0.0309  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2200/6156]  eta: 0:02:08    time: 0.0306  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2300/6156]  eta: 0:02:05    time: 0.0306  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2400/6156]  eta: 0:02:01    time: 0.0309  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2500/6156]  eta: 0:01:58    time: 0.0304  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2600/6156]  eta: 0:01:54    time: 0.0307  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2700/6156]  eta: 0:01:51    time: 0.0307  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2800/6156]  eta: 0:01:47    time: 0.0302  data: 0.0000  max mem: 5880
+      ITM Evaluation: [2900/6156]  eta: 0:01:44    time: 0.0307  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3000/6156]  eta: 0:01:40    time: 0.0306  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3100/6156]  eta: 0:01:37    time: 0.0309  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3200/6156]  eta: 0:01:34    time: 0.0305  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3300/6156]  eta: 0:01:31    time: 0.0306  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3400/6156]  eta: 0:01:27    time: 0.0311  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3500/6156]  eta: 0:01:24    time: 0.0302  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3600/6156]  eta: 0:01:21    time: 0.0302  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3700/6156]  eta: 0:01:17    time: 0.0307  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3800/6156]  eta: 0:01:14    time: 0.0306  data: 0.0000  max mem: 5880
+      ITM Evaluation: [3900/6156]  eta: 0:01:11    time: 0.0308  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4000/6156]  eta: 0:01:08    time: 0.0306  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4100/6156]  eta: 0:01:05    time: 0.0309  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4200/6156]  eta: 0:01:01    time: 0.0308  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4300/6156]  eta: 0:00:58    time: 0.0311  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4400/6156]  eta: 0:00:55    time: 0.0306  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4500/6156]  eta: 0:00:52    time: 0.0309  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4600/6156]  eta: 0:00:49    time: 0.0306  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4700/6156]  eta: 0:00:45    time: 0.0308  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4800/6156]  eta: 0:00:42    time: 0.0309  data: 0.0000  max mem: 5880
+      ITM Evaluation: [4900/6156]  eta: 0:00:39    time: 0.0305  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5000/6156]  eta: 0:00:36    time: 0.0307  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5100/6156]  eta: 0:00:33    time: 0.0308  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5200/6156]  eta: 0:00:30    time: 0.0307  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5300/6156]  eta: 0:00:26    time: 0.0310  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5400/6156]  eta: 0:00:23    time: 0.0316  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5500/6156]  eta: 0:00:20    time: 0.0308  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5600/6156]  eta: 0:00:17    time: 0.0305  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5700/6156]  eta: 0:00:14    time: 0.0304  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5800/6156]  eta: 0:00:11    time: 0.0304  data: 0.0000  max mem: 5880
+      ITM Evaluation: [5900/6156]  eta: 0:00:08    time: 0.0303  data: 0.0000  max mem: 5880
+      ITM Evaluation: [6000/6156]  eta: 0:00:04    time: 0.0304  data: 0.0000  max mem: 5880
+      ITM Evaluation: [6100/6156]  eta: 0:00:01    time: 0.0304  data: 0.0000  max mem: 5880
+      ITM Evaluation: [6155/6156]  eta: 0:00:00    time: 0.0302  data: 0.0000  max mem: 5880
+      ITM Evaluation: Total time: 0:03:12 (0.0313 s / it)
+     total_time 192.86913752555847
+     Computing matching score time 0:03:12
+### Zero-Shot ITM Score: 
++-------+--------+--------+--------+--------+--------+
+| epoch |   R1   |   R5   |  R10   |  mAP   |  mINP  |
++-------+--------+--------+--------+--------+--------+
+|  -999 | 70.760 | 87.378 | 92.268 | 63.849 | 48.174 |
+|  -999 | 76.170 | 89.457 | 93.600 | 65.570 | 47.372 |
++-------+--------+--------+--------+--------+--------+
+### TTA:
+### Compute ITC Uncertainty
+     preprocess_tta_coefficients  start
+     sample selection ...
+     number of sample after sample_selection: 6156
+     uncertainty ...
+     preprocess_tta_coefficients  end
+### Creating tta dataset
+     tta_dataset: 6156
+### Creating tta dataloader
+### be careful: func create_loader returns a list length of 1
+     tta_loader: 192
+### Configure adapted weights
+     TTA Dropout Modules: 
+ [('vision_encoder.pos_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.0.blocks.0.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.0.blocks.0.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.0.blocks.0.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.0.blocks.1.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.0.blocks.1.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.0.blocks.1.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.1.blocks.0.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.1.blocks.0.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.1.blocks.0.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.1.blocks.1.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.1.blocks.1.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.1.blocks.1.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.0.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.0.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.0.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.1.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.1.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.1.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.2.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.2.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.2.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.3.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.3.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.3.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.4.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.4.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.4.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.5.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.5.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.5.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.6.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.6.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.6.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.7.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.7.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.7.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.8.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.8.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.8.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.9.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.9.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.9.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.10.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.10.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.10.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.11.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.11.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.11.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.12.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.12.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.12.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.13.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.13.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.13.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.14.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.14.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.14.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.15.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.15.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.15.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.16.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.16.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.16.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.17.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.17.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.2.blocks.17.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.3.blocks.0.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.3.blocks.0.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.3.blocks.0.mlp.drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.3.blocks.1.attn.attn_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.3.blocks.1.attn.proj_drop', Dropout(p=0.0, inplace=False), True), ('vision_encoder.layers.3.blocks.1.mlp.drop', Dropout(p=0.0, inplace=False), True), ('text_encoder.bert.embeddings.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.0.attention.self.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.0.attention.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.0.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.1.attention.self.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.1.attention.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.1.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.2.attention.self.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.2.attention.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.2.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.3.attention.self.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.3.attention.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.3.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.4.attention.self.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.4.attention.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.4.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.5.attention.self.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.5.attention.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.5.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.6.attention.self.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.6.attention.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.6.crossattention.self.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.6.crossattention.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.6.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.7.attention.self.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.7.attention.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.7.crossattention.self.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.7.crossattention.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.7.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.8.attention.self.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.8.attention.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.8.crossattention.self.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.8.crossattention.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.8.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.9.attention.self.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.9.attention.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.9.crossattention.self.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.9.crossattention.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.9.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.10.attention.self.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.10.attention.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.10.crossattention.self.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.10.crossattention.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.10.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.11.attention.self.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.11.attention.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.11.crossattention.self.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.11.crossattention.output.dropout', Dropout(p=0.1, inplace=False), True), ('text_encoder.bert.encoder.layer.11.output.dropout', Dropout(p=0.1, inplace=False), True)]
+     TTA Require Gradient Params: 
+ [('text_encoder.bert.embeddings.LayerNorm.weight', torch.Size([768])), ('text_encoder.bert.embeddings.LayerNorm.bias', torch.Size([768])), ('text_encoder.bert.encoder.layer.6.attention.output.LayerNorm.weight', torch.Size([768])), ('text_encoder.bert.encoder.layer.6.attention.output.LayerNorm.bias', torch.Size([768])), ('text_encoder.bert.encoder.layer.6.crossattention.output.LayerNorm.weight', torch.Size([768])), ('text_encoder.bert.encoder.layer.6.crossattention.output.LayerNorm.bias', torch.Size([768])), ('text_encoder.bert.encoder.layer.6.output.LayerNorm.weight', torch.Size([768])), ('text_encoder.bert.encoder.layer.6.output.LayerNorm.bias', torch.Size([768])), ('text_encoder.bert.encoder.layer.7.attention.output.LayerNorm.weight', torch.Size([768])), ('text_encoder.bert.encoder.layer.7.attention.output.LayerNorm.bias', torch.Size([768])), ('text_encoder.bert.encoder.layer.7.crossattention.output.LayerNorm.weight', torch.Size([768])), ('text_encoder.bert.encoder.layer.7.crossattention.output.LayerNorm.bias', torch.Size([768])), ('text_encoder.bert.encoder.layer.7.output.LayerNorm.weight', torch.Size([768])), ('text_encoder.bert.encoder.layer.7.output.LayerNorm.bias', torch.Size([768])), ('text_encoder.bert.encoder.layer.8.attention.output.LayerNorm.weight', torch.Size([768])), ('text_encoder.bert.encoder.layer.8.attention.output.LayerNorm.bias', torch.Size([768])), ('text_encoder.bert.encoder.layer.8.crossattention.output.LayerNorm.weight', torch.Size([768])), ('text_encoder.bert.encoder.layer.8.crossattention.output.LayerNorm.bias', torch.Size([768])), ('text_encoder.bert.encoder.layer.8.output.LayerNorm.weight', torch.Size([768])), ('text_encoder.bert.encoder.layer.8.output.LayerNorm.bias', torch.Size([768])), ('text_encoder.bert.encoder.layer.9.attention.output.LayerNorm.weight', torch.Size([768])), ('text_encoder.bert.encoder.layer.9.attention.output.LayerNorm.bias', torch.Size([768])), ('text_encoder.bert.encoder.layer.9.crossattention.output.LayerNorm.weight', torch.Size([768])), ('text_encoder.bert.encoder.layer.9.crossattention.output.LayerNorm.bias', torch.Size([768])), ('text_encoder.bert.encoder.layer.9.output.LayerNorm.weight', torch.Size([768])), ('text_encoder.bert.encoder.layer.9.output.LayerNorm.bias', torch.Size([768])), ('text_encoder.bert.encoder.layer.10.attention.output.LayerNorm.weight', torch.Size([768])), ('text_encoder.bert.encoder.layer.10.attention.output.LayerNorm.bias', torch.Size([768])), ('text_encoder.bert.encoder.layer.10.crossattention.output.LayerNorm.weight', torch.Size([768])), ('text_encoder.bert.encoder.layer.10.crossattention.output.LayerNorm.bias', torch.Size([768])), ('text_encoder.bert.encoder.layer.10.output.LayerNorm.weight', torch.Size([768])), ('text_encoder.bert.encoder.layer.10.output.LayerNorm.bias', torch.Size([768])), ('text_encoder.bert.encoder.layer.11.attention.output.LayerNorm.weight', torch.Size([768])), ('text_encoder.bert.encoder.layer.11.attention.output.LayerNorm.bias', torch.Size([768])), ('text_encoder.bert.encoder.layer.11.crossattention.output.LayerNorm.weight', torch.Size([768])), ('text_encoder.bert.encoder.layer.11.crossattention.output.LayerNorm.bias', torch.Size([768])), ('text_encoder.bert.encoder.layer.11.output.LayerNorm.weight', torch.Size([768])), ('text_encoder.bert.encoder.layer.11.output.LayerNorm.bias', torch.Size([768])), ('text_encoder.cls.predictions.transform.LayerNorm.weight', torch.Size([768])), ('text_encoder.cls.predictions.transform.LayerNorm.bias', torch.Size([768])), ('itm_head.1.weight', torch.Size([1536])), ('itm_head.1.bias', torch.Size([1536]))]
+     TTA Dropout Modules Number: 
+ 122
+     TTA Require Gradient Params Sum: 
+ 33792
+     lr:  0.0001    lr_mult:  2
+     model has 'init_params',  363
+     num_tta_steps:  5790
+     num_warmup_steps:  100
+     sched: step
+### Start ITM Test Time Adaptation

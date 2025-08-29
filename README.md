@@ -1,13 +1,13 @@
 # APTM
 
-	
+
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/towards-unified-text-based-person-retrieval-a/nlp-based-person-retrival-on-cuhk-pedes)](https://paperswithcode.com/sota/nlp-based-person-retrival-on-cuhk-pedes?p=towards-unified-text-based-person-retrieval-a)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/towards-unified-text-based-person-retrieval-a/text-based-person-retrieval-on-icfg-pedes)](https://paperswithcode.com/sota/text-based-person-retrieval-on-icfg-pedes?p=towards-unified-text-based-person-retrieval-a)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/towards-unified-text-based-person-retrieval-a/text-based-person-retrieval-on-rstpreid-1)](https://paperswithcode.com/sota/text-based-person-retrieval-on-rstpreid-1?p=towards-unified-text-based-person-retrieval-a)
 
 **APTM (ACM MM 2023)** is a new joint **A**ttribute **P**rompt Learning and **T**ext **M**atching Learning framework, considering the shared knowledge between attribute and text. As the name implies, APTM contains an attribute prompt learning stream and a text matching learning stream.
 
-We also present a large Multi-Attribute and Language Search dataset for text-based person retrieval, called **MALS**, and explore the feasibility of performing pre-training on both attribute recognition and image-text matching tasks in one stone. In particular, MALS contains 1,510,330 image-text pairs, which is approximately 37.5 times larger than the prevailing CUHK-PEDES, and all images are annotated with 27 attributes. 
+We also present a large Multi-Attribute and Language Search dataset for text-based person retrieval, called **MALS**, and explore the feasibility of performing pre-training on both attribute recognition and image-text matching tasks in one stone. In particular, MALS contains 1,510,330 image-text pairs, which is approximately 37.5 times larger than the prevailing CUHK-PEDES, and all images are annotated with 27 attributes.
 
 Extensive experiments validate the effectiveness of the pre-training on MALS, achieving the state-of-the-art retrieval performance via APTM on three challenging real-world benchmarks. In particular, APTM achieves a consistent improvement of +6.60%, +7.39%, and +15.90% Recall@1 accuracy on the CUHK-PEDES, ICFG-PEDES, and RSTPReid datasets, respectively, by a clear margin. More details can be found at our paper: [Towards Unified Text-based Person Retrieval: A Large-scale Multi-Attribute and Language Search Benchmark](https://arxiv.org/abs/2306.02898)
 <div align="center"><img src="assets/framework.jpg" width="600"></div>
@@ -21,7 +21,7 @@ MALS leverages generative models to generate a large-scale dataset including 1.5
 
 **Note that MALS can only be used for research; any commercial usage is forbidden.**
 
-This is the comparison between MALS and other text-based person retrieval datasets. 
+This is the comparison between MALS and other text-based person retrieval datasets.
 <div align="center"><img src="assets/chart1.jpg" width="900"></div>
 These are examples of our MALS dataset and CUHK-PEDES.
 <div align="center"><img src="assets/examples.jpg" width="900"></div>
@@ -54,6 +54,12 @@ Create conda environment.
 
 ```
 conda create -n aptm python=3.8
+conda activate aptm
+pip install torch==1.9.1+cu111 torchvision==0.10.1+cu111 torchaudio==0.9.1 -f https://download.pytorch.org/whl/torch_stable.html
+pip3 install -r requirements.txt
+```
+```
+conda create -n aptm python=3.9
 conda activate aptm
 pip install torch==1.9.1+cu111 torchvision==0.10.1+cu111 torchaudio==0.9.1 -f https://download.pytorch.org/whl/torch_stable.html
 pip3 install -r requirements.txt
