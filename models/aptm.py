@@ -263,6 +263,15 @@ class APTM(nn.Module):
                 if config['lr_2']:
                     self.init_params.extend(['itm_head.' + n for n, _ in self.itm_head.named_parameters()])
 
+        # new parameter adding
+        ## Coeffi Exp Temperature
+        self.uncertainty_temper = torch.nn.Parameter(torch.ones(1) * config.get('uncertainty_temper', 1.0))
+        ## Learnable Empty Embedding for Prompt Learning
+        self.is_prompt_learning = config.get('is_prompt_learning', False)
+        self.prompt_learning_embedding = torch.nn.Parameter(torch.empty(1, config.get('prompt_learning_token_num', 1), self.text_encoder.config.hidden_size))
+        nn.init.normal_(self.prompt_learning_embedding, mean=0.0, std=0.02)
+
+
     def load_pretrained(self, ckpt_rpath, config, is_eval=False):
         state_dict = load_pretrained(ckpt_rpath, config, is_eval=is_eval, load_text=True)
         msg = self.load_state_dict(state_dict, strict=False)

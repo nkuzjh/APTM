@@ -1,4 +1,21 @@
-usage: run_tta.py [-h] --task TASK --device_no DEVICE_NO [--bs BS] [--epo EPO]
-                  [--seed SEED] [--checkpoint CHECKPOINT] --output_dir
-                  OUTPUT_DIR [--evaluate] [--tta] [--config CONFIG]
-run_tta.py: error: the following arguments are required: --device_no
+Not using distributed mode
+### Hyper-parameters:
+     seed: 42
+     device: cuda
+     output_dir: output/ft_rstp/tta/tta_exp6.0.2
+     batch_size_tta: 16
+     epochs: 30
+     lr: 0.0005
+### Creating model
+Traceback (most recent call last):
+  File "/home/jiahao/task/APTM/tta.py", line 347, in <module>
+    main(args, config)
+  File "/home/jiahao/task/APTM/tta.py", line 89, in main
+    model = APTM_Retrieval(config=config)
+  File "/home/jiahao/task/APTM/models/model_retrieval.py", line 9, in __init__
+    super().__init__(config, load_vision_params=config['load_params'], load_text_params=config['load_params'],
+  File "/home/jiahao/task/APTM/models/aptm.py", line 212, in __init__
+    self.prompt_learning_embedding = torch.nn.Parameter(torch.empty(1, config.get('prompt_learning_token_num', 1), self.text_encoder.config.hidden_size))
+  File "/home/jiahao/miniconda3/envs/aptm/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1130, in __getattr__
+    raise AttributeError("'{}' object has no attribute '{}'".format(
+AttributeError: 'APTM_Retrieval' object has no attribute 'text_encoder'

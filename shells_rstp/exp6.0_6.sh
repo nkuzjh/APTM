@@ -27,9 +27,9 @@ exp_names=(
     "tta_exp6.5"
     "tta_exp6.5.1"
     "tta_exp6.5.2"
-    "tta_exp4.6"
-    "tta_exp4.6.1"
-    "tta_exp4.6.2"
+    "tta_exp6.6"
+    "tta_exp6.6.1"
+    "tta_exp6.6.2"
 )
 
 # 按顺序执行每个训练任务

@@ -15,7 +15,7 @@
     +------+--------+--------+--------+--------+--------+
     | t2i  | 66.450 | 85.600 | 90.600 | 50.642 | 25.526 |
     +------+--------+--------+--------+--------+--------+
-3. python3 run.py --task "itr_icfg" --evaluate --dist "gpu1" --output_dir "output/ft_icfg/test" --checkpoint "checkpoints/ft_icfg/checkpoint_best.pth"
+3. python3 run.py --task "itr_icfg" --evaluate --dist "gpu0" --output_dir "output/ft_icfg/test" --checkpoint "checkpoints/ft_icfg/checkpoint_best.pth"
     +------+--------+--------+--------+--------+-------+
     | task |   R1   |   R5   |  R10   |  mAP   |  mINP |
     +------+--------+--------+--------+--------+-------+
@@ -23,12 +23,32 @@
     +------+--------+--------+--------+--------+-------+
 
 ## 不符合setting的任务
-**itr_pa100k为i2t任务且模型结构不同**
-**irt_gene为finetune任务**
+**evaluate pretrain -> transfer learning baseline分数太低**
+1. python3 run.py --task "itr_cuhk" --evaluate --dist "gpu0" --output_dir "output/ft_cuhk/test_pretrain" --checkpoint "checkpoints/pretrained/checkpoint_31.pth"
+    +------+-------+-------+-------+-------+-------+
+    | task |   R1  |   R5  |  R10  |  mAP  |  mINP |
+    +------+-------+-------+-------+-------+-------+
+    | t2i  | 3.509 | 6.725 | 8.869 | 3.266 | 1.505 |
+    +------+-------+-------+-------+-------+-------+
+2. python3 run.py --task "itr_rstp" --evaluate --dist "gpu0" --output_dir "output/ft_rstp/test_pretrain" --checkpoint "checkpoints/pretrained/checkpoint_31.pth"
+    +------+-------+--------+--------+-------+-------+
+    | task |   R1  |   R5   |  R10   |  mAP  |  mINP |
+    +------+-------+--------+--------+-------+-------+
+    | t2i  | 7.200 | 14.600 | 20.600 | 4.992 | 1.957 |
+    +------+-------+--------+--------+-------+-------+
+3. python3 run.py --task "itr_icfg" --evaluate --dist "gpu0" --output_dir "output/ft_icfg/test_pretrain" --checkpoint "checkpoints/pretrained/checkpoint_31.pth"
+    +------+-------+-------+-------+-------+-------+
+    | task |   R1  |   R5  |  R10  |  mAP  |  mINP |
+    +------+-------+-------+-------+-------+-------+
+    | t2i  | 1.129 | 3.008 | 4.696 | 0.605 | 0.197 |
+    +------+-------+-------+-------+-------+-------+
+**evaluate itr_pa100k为i2t任务且模型结构不同**
 1. python3 run.py --task "itr_pa100k" --evaluate --dist "gpu0" --output_dir "output/ft_pa100k/test" --checkpoint "checkpoints/ft_pa100k/checkpoint_best.pth"
    {'label_mA': 0.8235, 'ins_acc': 0.8024, 'ins_prec': 0.8853, 'ins_rec': 0.8769, 'ins_f1': 0.8811}
+**train irt_gene为finetune任务**
 2. python3 run.py --task "itr_gene" --dist "f4" --output_dir "output/pretrained"
     仅用于pretrain
+**train itr_cuhk为finetune任务**
 3. python3 run.py --task "itr_cuhk" --dist "f4" --output_dir "output/ft_cuhk" --checkpoint "output/pretrained/checkpoint_31.pth"
     仅用于finetuned
 

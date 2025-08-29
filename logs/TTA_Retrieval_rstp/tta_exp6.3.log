@@ -1,4 +1,87 @@
-usage: run_tta.py [-h] --task TASK --device_no DEVICE_NO [--bs BS] [--epo EPO]
-                  [--seed SEED] [--checkpoint CHECKPOINT] --output_dir
-                  OUTPUT_DIR [--evaluate] [--tta] [--config CONFIG]
-run_tta.py: error: the following arguments are required: --device_no
+Not using distributed mode
+### Hyper-parameters:
+     seed: 42
+     device: cuda
+     output_dir: output/ft_rstp/tta/tta_exp6.3
+     batch_size_tta: 16
+     epochs: 30
+     lr: 0.001
+### Creating model
+use_swin
+load checkpoint from checkpoints/ft_rstp/checkpoint_best.pth
+missing_keys:  []
+vision_encoder missing_keys:  []
+unexpected_keys:  []
+     Total Params Sum:  214456629
+### Creating test dataset
+     test_dataset: 1000
+### Creating test dataloader
+### be careful: func create_loader returns a list length of 1
+     test_loader: 7
+### Inference ITC similiarity matrix
+     Computing text features for evaluation
+     Computing image features for evaluation
+/home/jiahao/task/APTM/reTools.py:308: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  similarity = torch.tensor(scores_t2i)
+     Computing features time 0:00:04
+### Zero-Shot ITC Score: 
++-------+--------+--------+--------+--------+--------+
+| epoch |   R1   |   R5   |  R10   |  mAP   |  mINP  |
++-------+--------+--------+--------+--------+--------+
+|  -999 | 59.000 | 79.650 | 88.500 | 47.231 | 25.876 |
++-------+--------+--------+--------+--------+--------+
+     Computing matching score
+      ITM Evaluation: [   0/2000]  eta: 0:01:38    time: 0.0493  data: 0.0018  max mem: 4847
+      ITM Evaluation: [ 100/2000]  eta: 0:01:24    time: 0.0461  data: 0.0000  max mem: 4847
+      ITM Evaluation: [ 200/2000]  eta: 0:01:21    time: 0.0441  data: 0.0000  max mem: 4847
+      ITM Evaluation: [ 300/2000]  eta: 0:01:16    time: 0.0432  data: 0.0000  max mem: 4847
+      ITM Evaluation: [ 400/2000]  eta: 0:01:12    time: 0.0459  data: 0.0000  max mem: 4847
+      ITM Evaluation: [ 500/2000]  eta: 0:01:08    time: 0.0556  data: 0.0000  max mem: 4847
+      ITM Evaluation: [ 600/2000]  eta: 0:01:05    time: 0.0508  data: 0.0000  max mem: 4847
+      ITM Evaluation: [ 700/2000]  eta: 0:01:01    time: 0.0466  data: 0.0000  max mem: 4847
+      ITM Evaluation: [ 800/2000]  eta: 0:00:56    time: 0.0460  data: 0.0000  max mem: 4847
+      ITM Evaluation: [ 900/2000]  eta: 0:00:51    time: 0.0414  data: 0.0000  max mem: 4847
+      ITM Evaluation: [1000/2000]  eta: 0:00:46    time: 0.0370  data: 0.0000  max mem: 4847
+      ITM Evaluation: [1100/2000]  eta: 0:00:41    time: 0.0397  data: 0.0000  max mem: 4847
+      ITM Evaluation: [1200/2000]  eta: 0:00:36    time: 0.0406  data: 0.0000  max mem: 4847
+      ITM Evaluation: [1300/2000]  eta: 0:00:31    time: 0.0408  data: 0.0000  max mem: 4847
+      ITM Evaluation: [1400/2000]  eta: 0:00:26    time: 0.0381  data: 0.0000  max mem: 4847
+      ITM Evaluation: [1500/2000]  eta: 0:00:21    time: 0.0404  data: 0.0000  max mem: 4847
+      ITM Evaluation: [1600/2000]  eta: 0:00:17    time: 0.0476  data: 0.0000  max mem: 4847
+      ITM Evaluation: [1700/2000]  eta: 0:00:13    time: 0.0379  data: 0.0000  max mem: 4847
+      ITM Evaluation: [1800/2000]  eta: 0:00:08    time: 0.0399  data: 0.0000  max mem: 4847
+      ITM Evaluation: [1900/2000]  eta: 0:00:04    time: 0.0472  data: 0.0000  max mem: 4847
+      ITM Evaluation: [1999/2000]  eta: 0:00:00    time: 0.0397  data: 0.0000  max mem: 4847
+      ITM Evaluation: Total time: 0:01:26 (0.0431 s / it)
+     total_time 86.20648145675659
+     Computing matching score time 0:01:26
+### Zero-Shot ITM Score: 
++-------+--------+--------+--------+--------+--------+
+| epoch |   R1   |   R5   |  R10   |  mAP   |  mINP  |
++-------+--------+--------+--------+--------+--------+
+|  -999 | 59.000 | 79.650 | 88.500 | 47.231 | 25.876 |
+|  -999 | 66.450 | 85.600 | 90.600 | 50.642 | 25.526 |
++-------+--------+--------+--------+--------+--------+
+### TTA:
+### Compute ITC Uncertainty
+     preprocess_tta_coefficients  start
+     sample selection ...
+     number of sample after sample_selection: 2000
+     uncertainty ...
+     preprocess_tta_coefficients  end
+### Creating tta dataset
+     tta_dataset: 2000
+### Creating tta dataloader
+### be careful: func create_loader returns a list length of 1
+     tta_loader: 125
+### Configure adapted weights
+Traceback (most recent call last):
+  File "/home/jiahao/task/APTM/tta.py", line 347, in <module>
+    main(args, config)
+  File "/home/jiahao/task/APTM/tta.py", line 258, in main
+    model = configure_tta_model(config, model)
+  File "/home/jiahao/task/APTM/tta/optim.py", line 74, in configure_tta_model
+    model.prompt_learning_embedding.requires_grad_(True)
+  File "/home/jiahao/miniconda3/envs/aptm/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1130, in __getattr__
+    raise AttributeError("'{}' object has no attribute '{}'".format(
+AttributeError: 'APTM_Retrieval' object has no attribute 'prompt_learning_embedding'
