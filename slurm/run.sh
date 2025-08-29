@@ -26,4 +26,4 @@
 # cpus-per-task: cpu cores you want to request in this job
 
 # Insert your commands here
-bash ../shells/run_exp_01236.sh
+bash shells_rstp/run_exp_01236.sh
